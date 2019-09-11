@@ -1,0 +1,27 @@
+  p  {    color: maroon;  }   
+  p.greentea{ color: green;}
+  h1 { font-family: sans-serif; color: red;}      
+  h2,h3 { font-family: sans-serif; color: gray;}  
+  h2 { border-bottom: 1px solid black; } 
+  h3 { text-decoration: underline; }  
+  blockquote{ border-bottom: 1px solid black; color: maroon; }  
+  blockquote.greentea{color:green;}
+  blockquote.blacktea{color:black;}
+  blockquote.flourtea{color:red;}
+  
+  
+ 
+ /*
+  p.greentea{}，即设置某个类的css属性，会覆盖父属性。
+  
+  p.greentea,blockquote.greentea{color:green;}可以取代以上的分开设置；
+  .greentea{color:green;}可以取代以上的并列设置，并实现对所有的greentea类设置。
+  
+  blockquote.greentea{color:green;}
+  blockquote.blacktea{color:black;}
+  blockquote.flourtea{color:red;}
+  这里存在属性冲突，由于三个类的具体程度相同（优先级相同），规定采用css文件中排列最后的那个属性，
+  这里就是color：red；属性。
+  
+  
+  */

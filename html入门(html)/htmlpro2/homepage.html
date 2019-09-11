@@ -1,0 +1,57 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> -->
+<!-- 用于向浏览器说明html版本（html4.01），Transitional和loose说明是过渡性的html4.01规范，尚不是严格的html4.01 -->
+<!-- 可以通过https://validator.w3.org/check来检查编写是否规范 -->
+<!-- 过渡的html4.01中，<img>元素必须有alt属性 -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!-- 移去Transitional、改loose为strict，说明现在使用的是严格的html4.01规范 -->
+<!-- 严格的html4.01规范中，<img>、<br>元素必须包含在块元素中，即内联元素必须包含在块元素中 -->
+<!-- 严格的html4.01规范中，<img>元素没有target属性 -->
+
+<html>
+
+
+<head>
+  <meta http-equiv="Conten-Type" content="text/html; charset=UTF-8"> <!-- <meta>元素用于说明文档编码方案 -->
+  <title>ImgUse</title>
+</head>
+
+
+<body>
+  <h1>Img+URL</h1>
+    <p>Link to web picture through URL, instead of a local one.
+    <img src="https://csdnimg.cn/feed/20190121/0fde1249a713d68e0877f77117c3373f.jpg" width="420" height="240" alt=""> <br> <!-- <img>元素，src属性URL链接到网页图片，而非本地图片；可以通过右击图片复制地址或者右击查看网页源码搜索jpg -->
+	<img src="images/pic1.gif" alt="an unknown picture"  width="420" height="240" ><br>    <!-- alt 属性用于描述链接的图片，若图片无法打开则用该描述代替 -->
+	<img src="images/pic2.gif" width="420" height="240" alt=""><br>                              <!-- width/height 属性用于描述链接图片的显示大小 -->
+    <img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/Pn4Sm0RsAuhSvZMAt2zKcxGQN3l1NV4LE9fmMcYEAXfibNy0icpZV1kal0va2tKYusx3VsNPiaQEoIYqXAw6Hnc0w/640?wx_fmt=jpeg"  width="420" height="240" alt=""><br>
+  </p>
+  
+  <h2>Thumbnail</h2>
+	<p>
+	<!-- Use thumbnails to show the pictures, through these link to origianl one. <br>                      -->
+	<!-- <a href="images/pic1.gif" target="_blank"> <img src="thumbnails/pic1_med.gif" alt="picture1"> </a> -->  <!-- 通过缩略图显示图片信息，通过点击缩略图链接到对应的原始图像；新打开窗口显示链接的图像 -->
+	<!-- <a href="images/pic2.gif" target="_blank"> <img src="thumbnails/pic2_med.gif" alt="picture2"> </a> -->
+	<!-- <a href="images/pic3.gif" target="_blank"> <img src="thumbnails/pic3_med.gif" alt="picture3"> </a> -->
+	</p>  
+	
+	<p>
+	Use thumbnails to show the pictures, through these link to origianl one. <br>
+	<a href="images/pic1.gif" > <img src="thumbnails/pic1_med.gif" alt="picture1"> </a>      <!-- 通过缩略图显示图片信息，通过点击缩略图链接到对应的原始图像；新打开窗口显示链接的图像 -->
+	<a href="images/pic2.gif" > <img src="thumbnails/pic2_med.gif" alt="picture2"> </a>
+	<a href="images/pic3.gif" > <img src="thumbnails/pic3_med.gif" alt="picture3"> </a>
+	</p> 
+	
+</body>
+
+
+</html>
+
+<!-- 
+<img>元素的属性：
+src，可以连接相对路径、绝对路径、URL；
+alt，用于描述所链接的图片，当图片不能正常显示时以此代替；
+width/height，用于描述链接图片的显示大小
+
+
+
+-->

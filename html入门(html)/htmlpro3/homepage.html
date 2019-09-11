@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtmll/DTD/xhtml1-strict.dtd">
+<!-- 严格的xhtml规范 -->
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />                 <!-- 所有的空元素都以 "/>"结尾 -->
+  <title>XHTML-Demo</title>
+  <link type="text/css" rel="stylesheet" href="globalcss.css" />            <!-- 采用外部层叠样式表css文件。-->
+  
+  <!-- 
+  <style type="text/css">
+  p  {    color: maroon;  }   
+  h1 { font-family: sans-serif; color: red;}      
+  h2,h3 { font-family: sans-serif; color: gray;}  
+  h2 { border-bottom: 1px solid black; } 
+  h3 { text-decoration: underline; }  
+  blockquote{ border-bottom: 1px solid black; }   
+  </style>
+  -->
+</head>
+
+<body>
+  <h1>SimpleDemo</h1>
+  <p>there is nothing.</p>  
+  
+  <h2>Demo2</h2>
+  <p>
+  this is for testing css.
+  <a href="https://www.zhihu.com/people/qrain/following" target="_blank">lick here</a>   <!-- 链接的颜色不变 -->
+  </p>    
+  <blockquote class="greentea">this is for testing css.</blockquote>
+  
+  <h2>Demo3</h2>
+  <p>this is for testing too.</p>
+  
+  <h3>Demo4</h3>
+  <p>this is for testing too.</p>
+  
+  
+  
+</body>
+
+</html>
+
+
+
+<!-- 
+css，cascading style sheets，层叠样式表。
+
+不能在css后面加注释，否则会导致css无法表达。
+  p  {    color: maroon;  }                        所有的段落都显示为栗色,段落中链接的颜色不变。 
+  h1 { font-family: sans-serif; color: red;}       所有一级标题字体为sans-serif，颜色为红色。 
+  h2,h3 { font-family: sans-serif; color: gray;}   所有二级、三级标题字体为sans-serif，颜色为灰色。 
+  h2 { border-bottom: 1px solid black; }           给所有二级标题加1像素宽的黑色下划线(直到页面边界)。
+  h3 { text-decoration: underline; }               给所有三级标题加下划线(只在文本下)。
+  blockquote{ border-bottom: 1px solid black; }    给所有块引用加1像素宽的黑色下划线。 
+
+通过链接到外部css文件，可以同时修改所有html的显示样式；这些css相当于html的全局样式。
+
+元素样式可以继承，即从父元素中继承，如
+<p>元素中的<a>、<em>元素可以从<p>中继承字体样式设置。
+
+<body>元素也可以设置css，其中设置的样式将会被继承。
+但如果对<body>元素中子元素设置样式，则父元素中的样式会被对应的子元素样式覆盖。
+-->

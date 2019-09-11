@@ -1,0 +1,197 @@
+<html>
+
+
+<head>
+  <title>Tony's Trip through US</title>
+  <style type="text/css">
+    body
+      {
+	    background-color: #d2b48c;              
+	    margin-left: 20%;                       
+	    margin-right: 20%;
+	    border: 1px dotted gray;                
+	    padding: 10px 10px 10px 10px;           
+	    font-family: sans-serif; 
+      }
+  </style>
+</head>
+
+
+<body>
+  <h1>Segway' n USA! </h1>
+  <p>Doucumenting my trip around the US on my very own Segway!</p>
+  <p><a href="journal.html#test">see test part</a></p>                <!-- 使用<a>元素、通过目标锚，实现页面内跳转，href=“xxx.html#目标锚id” -->
+  
+  <h2>August  20,2005</h2>
+  <img src="images/pic1.gif">
+  <p>
+  Well i made it 1200 miles <b>already</b>,                           <!-- <b>元素，类似<strong>元素，加粗字体（黑体？），内联元素 -->
+  and i passed through some interesting places on the way :
+    <ol>                                                              <!-- <ol>元素，有序列表；块元素；可内置<p>中 -->   
+	  <li>Walla Walla, WA</li>
+	  <li>Magic City, ID</li>                                         
+	</ol>
+  </p>
+  
+  <p>
+    <ol>                                                              <!-- <ol>元素，有序列表，会自动添加序号；块元素 -->   
+	  <li>Walla Walla, WA</li>
+	  <li>Magic City, ID</li>                                         <!-- <li>元素，列表元素，标记内容为列表；块元素 -->
+	  <li>Bountiful, UT</li>
+	    <ul>                                                          <!-- <li>元素中可以嵌套<ol>或者<ul>元素 -->
+		  <li>Coffee Bar</li>
+		  <li>Beer Bar</li>
+		  <li>Intenet Bar</li>
+		</ul>
+	  <li>Last Change, CO</li>
+	  <li>Why, AZ</li>
+	  <li>Truth or Consequences, NM</li>
+	</ol>
+	                                                                  <!-- <ol>和<ul>元素一样，都必须和<li>元素连用,不能内嵌其他元素；<li>确定每个项目，<ul>或<ol>将这些项目连成一组 -->
+	<ul>                                                              <!-- <ul>元素，无序列表，不添加序号，一般自动添加前缀符号；块元素 -->
+	  <li>Walla Walla, WA</li>
+	  <li>Magic City, ID</li>
+	  <li>Bountiful, UT</li>
+	  <li>Last Change, CO</li>
+	  <li>Why, AZ</li>
+	  <li>Truth or Consequences, NM</li>
+	</ul>
+  </p>
+  
+  <p>
+  Here is the motto:
+  <q>A journey of a thousand miles begins with a segways </q>          <!-- <q>元素，简短的引用，一般自动加双引号，可以插入到段落<p>、<blockquote>中；引用如果需要强调，可内嵌<em>元素 -->
+  </p>
+  
+  <p>" A journey of a thousand miles begins with a segways "</p>
+
+  <h2>July  14,2005</h2>
+  <p>
+  I saw some signs on the side of the road today:
+  </p>  
+  <blockquote>
+  Passing cars, <br>                                 <!-- <br>元素，空元素，没有可标记的内容，专门用于换行；和<img>元素类似，没有结束标记 -->
+  When you can't see, <br>
+  May get you, <br>
+  A glimpse, <br>
+  of eteinity.<br>
+  </blockquote>                                      <!-- <blockquote>元素，长段引用，不能插入段落<p>中，会另开一行缩进显示，层级和<p>相同 -->
+
+  <h2>June  2,2005</h2>
+  <img src="./images/pic2.gif">
+  
+  <h2>June  5,2005</h2>
+  <img src="images/pic3.gif">
+  <p>
+  My first day of the trip! I can't believe finally got everything packed
+  and read to go. Because i'm on a Segway, i wasn't able to bring a whole lot with me：
+    <ul>
+	  <li>cell phone</li>
+	  <li>ipod</li>
+	  <li>digital camera</li>
+	  <li>protein bar</li>
+	</ul>
+  </p>
+  
+  <p>	
+    <ul>                                                          <!-- <ul>和<ol>元素一样，放置在任何段内效果都一样 -->
+	  <a href="task.html" title="A demo"><li>cell phone</li></a>  <!-- title属性，鼠标放在“cell phone”上时显示该链接的标题，一般应与链接网站的<head>相同；属性的顺序不重要 -->
+	  <li>ipod</li>
+	  <li>digital camera</li>
+	  <li>protein bar</li>
+	</ul>
+  </p>
+  
+  <p>
+    <dl>                              <!-- <dl>元素，自定义列表，块元素，搭配<dt>和<dd>元素 -->
+	  <dt>Burma Shave Signs</dt>      <!-- <dt>元素，列表项目  -->
+	    <dd>Road signs common in the US in the 1920s advertising shaving products.</dd>  <!-- <dd>元素，对列表项目的解释介绍 -->
+	  <dt>Route 66</dt>
+	    <dd>Most famous road in the US highway system.</dd>
+	</dl>
+  </p>
+  
+  
+  <h1><a id="test">This is for test</a></h1>              <!-- 使用<a>创建一个目标锚，使用id属性标记该目标-->
+  
+  <h2>Test1</h2>
+  <p>  
+  to use element in html page, such as <em>&lt;html&gt;element</em>, would need special character;<br>   <!-- "&lt;"就是“<”，"&gt;"就是“>”，这是为了在网页中显示“<html>” -->
+  to use element such as <em>&amp;</em>;<br>                                                             <!-- "&amp;"就是“&” -->
+  </p>
+  
+  <h2>Test2</h2>
+  <p>
+  Here is my address:<address>zhejiang, hangzhou, China</address>                        <!-- <address>元素，标记文本为地址内容，块元素；一般会换行后自动斜体展示 -->
+  And now, there are some things i want to strong emphasize:<strong>I am cool!</strong>  <!-- <strong>元素，标记文本为着重内容，内联元素；一般表现为黑体字体 -->
+  </p>
+                                                                                         <!-- <hr>元素，展现一条水平白线，空元素；如同<br>，没有包围的文本，没有结束标记；在<hr> 后面的注释也会作为文本换行展示出来-->
+  <hr>                    
+    <p>
+	This is for testing element like <q>&lt;hr&gt;</q>.<br>
+	For what effect it would bring?<br>
+    </p>
+  <hr>
+  
+  <h2>CONDING</h2>
+  <p>
+  This is some code programmed by C++:<br>
+    <code>                                                                               <!-- <code>元素，标记文本为代码，块元素；一般表现为小一号字体；-->
+	int main(int argc, char* argv[])<br>
+	{<br>
+	  cout<<"Hello world! ";<br>
+	  return 0;<br>
+	}<br>
+	</code>  
+  </p>
+  
+  <h2>WebPageHref</h2>
+  <p>
+  Here is another web page <a href="https://www.zhihu.com/people/qrain/following">ZhiHu</a>.<br>                 <!-- <a>元素中链接到另一个web网页，使用URL地址 -->
+  Here is another web page <a href="https://www.zhihu.com/people/qrain/following" target="_blank">ZhiHu</a>.<br> <!-- <a>元素中的target属性，“_blank”说明所有链接网页在新窗口打开； -->
+  Here is another web page <a href="https://www.zhihu.com/people/qrain/following",target="ZhiHu">ZhiHu</a>.<br>  <!-- <a>元素中的target属性，“ZhiHu”说明所有链接的ZhiHu网页在同一窗口打开？ -->
+  </p>
+  
+  <p><a href="#top">back to top</a></p>                      <!-- 返回页面顶部 -->
+</body>
+
+
+</html>
+
+
+
+<!-- 
+<h1>...<h6>,<blockquote>都是block块元素，其前后都有换行符；块元素将内容分割为块；
+<q>,<a>,<em>,<img> 都是inline内联元素，其前后没有换行符（靠块元素分割）；其总是在网页中随文字流出现在行内；
+
+块元素是网页的主要结构模块，而内联元素则用来标记内容的小片段。
+如果元素出现时自动换行，则为块元素；不换行，出现在行内，则为内联元素。
+
+统一资源定位符URL，又叫网站网址，是一个全球性网址，用于定位网上资源。
+http://          www.starbucks.com               /html/homepage.html
+接收资源的协议   网站名（starbucks.com是域名）   从根目录到资源的绝对路径
+
+通过URL可以让浏览器从网上获取网页或其他资源：
+协议部分告诉浏览器获取资源的方式；
+网站名部分（服务器名+域名）告诉浏览器从互联网上哪台计算机获取资源；
+绝对路径部分告诉浏览器你在寻找什么网页或资源。
+
+<a>元素中href是相对路径，但是浏览器会以此生成一个绝对路径发送给web服务器。
+相对路径链接用于同一网站内的网页，
+绝对路径链接用于其他网站的网页。
+
+当我们通过浏览器向服务器请求一个目录而不是一个文件时，如http://www.starbucks.com/html/，
+服务器会尝试在html目录中定位查找默认文件index.html或default.htm（微软服务器htm），并返回。
+
+当我们请求的URL是http://www.starbucks.com，服务器会自动将URL修改为http://www.starbucks.com/
+然后查找并返回默认文件，如果找不到一般返回“404错误”。
+
+
+
+
+
+-->
+
+
+
+
