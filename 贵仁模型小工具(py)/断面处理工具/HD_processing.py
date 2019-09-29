@@ -8,7 +8,7 @@ import time
 
 # 调整水力模型河道断面。
 class pre_Processing():
-    print(time.strftime("%Y-%m-%d %H:%M:%S"), "  贵仁水力模型小工具用起来👆")  # 类代码，第一次触发执行。
+    print(time.strftime("%Y-%m-%d %H:%M:%S"), "  贵仁水力模型小工具用起来👆\n")  # 类代码，第一次触发执行。
     logging_file = "grms_log.txt"  # 类字段，任何类实例访问的都是同样的字段，但修改后的字段将绑定在实例。
 
     @classmethod  # 类方法，不能访问类的self成员；通过cls，可以访问类成员(用于封装接口)；通过类名调用。
@@ -38,8 +38,11 @@ class pre_Processing():
         self.__outFolder = result_folder
         self.__log = self.__init_log()
 
-    # 初始化一个日志器，保存处理信息。
     def __init_log(self):
+        '''
+        初始化一个日志器，保存处理信息。
+        :return: None
+        '''
         log = logging.getLogger()  # 注意：若未设置日志名称，则所有getLogger()返回的都是同一个日志器。
         log.setLevel(logging.INFO)  # 设置日志等级，后面低于该等级的日志信息将不会被输出。
 
@@ -57,10 +60,14 @@ class pre_Processing():
         log.addHandler(handler_stream)
         return log
 
-    # 提取三维散点的高程，并返回ID列表和高程列表。
-    # （场景是，采用dem散点数据和CrossSectionLocation数据，插值河道中点高程，之后再整体调整河道高程）
     @staticmethod
     def get_scatter_ele(ele_file):
+        '''
+        提取三维散点的高程，并返回ID列表和高程列表。
+        （场景是，采用dem散点数据和CrossSectionLocation数据，插值河道中点高程，之后再整体调整河道高程）
+        :param ele_file: 三维散点文件
+        :return: ID(河道断面id)，ele(散点（断面中点）高程)
+        '''
         ID, ele = [], []
         with open(ele_file, "r") as f:
             for line in f.readlines():
@@ -69,10 +76,12 @@ class pre_Processing():
                 ele.append(float(data[3]))
         return ID, ele
 
-    # 获取HD数据,并返回ID列表（带河段分割标志）和断面列表。
     def get_HD_data(self):
-        ID, HD = ["----"], [[], ]
-
+        '''
+        获取HD数据,并返回ID列表（带河段分割标志）和断面列表。
+        :return: ID(河道id), HD(河道断面形状)
+        '''
+        ID, HD = [], []
         HD_file = self.__IN1D + "\\Topo\\HD.inp"
         f = open(HD_file, 'r')
         data = f.readlines()
@@ -102,9 +111,12 @@ class pre_Processing():
         self.__log.warning("HD read is done (for learn).\n")
         return ID, HD
 
-    # 通过断面中点高程数据调整河道模型的断面高程，并返回完整格式的HD数据。
-    # （各断面高程分别调整）
     def modify_HD_with_ele(self, ele_file):
+        '''
+        通过断面中点高程数据调整河道模型的断面高程，并返回完整格式的HD数据。
+        :param ele_file: 断面中点高程文件（由get_scatter_ele(ele_file)获得）。
+        :return: ID_hd(河道断面id)，HD(完整的HD.inp数据)。
+        '''
         ID_ele, ele = pre_Processing.get_scatter_ele(ele_file)
         ID_hd, HD = self.get_HD_data()
 
@@ -125,8 +137,12 @@ class pre_Processing():
             HD[index] = hd
         return ID_hd, HD
 
-    # 平均同一断面上的左右河岸高程。
     def average_cross_bank_ele(self, HD):
+        '''
+        平均同一断面上的左右河岸高程。
+        :param HD: 河道断面形状数据。
+        :return: None。
+        '''
         index, count = 0, len(HD)
         while index < count:
             if HD[index][0] == '-':
@@ -139,8 +155,13 @@ class pre_Processing():
             HD[index] = cross
             index += 1
 
-    # 平均各河段内相邻断面的河岸高程（使河岸平滑，不跨汊点平均）。
     def average_adjacentCross_bank_ele(self, ID, HD):
+        '''
+        平均各河段内相邻断面的河岸高程（使河岸平滑，不跨汊点平均）。
+        :param ID: 河道断面id。
+        :param HD: 河道断面形状。
+        :return: None.
+        '''
         reaches = self.__get_reach(ID)
         for reach in reaches:
             count, index = reach[0], reach[1]
@@ -154,8 +175,13 @@ class pre_Processing():
                 HD[index], HD[index + 1] = cross1, cross2
                 index += 1
 
-    # 平均各河段内相邻断面的河底高程（使底坡平滑，不跨汊点平均）。
     def average_adjacentCross_bottom_ele(self, ID, HD):
+        '''
+        平均各河段内相邻断面的河底高程（使底坡平滑，不跨汊点平均）。
+        :param ID: 河道断面id。
+        :param HD: 河道断面形状。
+        :return: None。
+        '''
         reaches = self.__get_reach(ID)
         for reach in reaches:
             count, index = reach[0], reach[1]
@@ -169,32 +195,42 @@ class pre_Processing():
                 HD[index][bottom_index1][1], HD[index+1][bottom_index2][1] = av_bottom, av_bottom
                 index += 1
 
-    # 提取各段断面数量及各河段标志的索引下标，并返回列表。
-    # （场景是，当要从HD数据中按河段提取断面数据，ID与HD结构相同。）
     def __get_reach(self, ID):
-        reach, index, index_last = [], 1, 0
-        while index < len(ID):
-            if ID[index][0] == '-':
-                num = index - index_last - 1
-                reach.append([num, index+1])  # 同时保存每个河段第一个断面的索引下标。
-                index_last = index   # index_last是ID中一个河段标志的下标。
+        '''
+         提取各段断面数量及各河段标志的索引下标，并返回列表。
+         （场景是，当要从HD数据中按河段提取断面数据，ID与HD结构相同。）
+        :param ID: 河道断面id。
+        :return: reach(河段断面个数，在HD.inp文件中的索引)。
+        '''
+        reach, index, index_last = [], 0, 0
+        reach_index = [num for num, data in enumerate(ID) if data[0] == '-']
+        reach.append(reach_index[1]-reach_index[0]-1)
+        index = 1
+        while index < len(reach_index)-1:
+            reach.append(reach_index[index+1] - reach_index[index]-1)
             index += 1
+        reach.append(len(ID)-reach_index[-1]-1)
         return reach
 
-    # 输出河道数据到文件中（覆盖原始HD.inp）
     def out_HD_file(self, ID, HD):
+        '''
+        输出河道数据到文件中.
+        :param ID: 河道断面id。
+        :param HD: 河道断面形状。
+        :return: None.
+        '''
         if len(ID) != len(HD):
             raise ValueError("len(HD) != len(ID)")
 
         reach = self.__get_reach(ID)
         cross_index, cross_count = 0, len(ID) - len(reach)
 
-        HD_file = self.__IN1D + "\\HD.inp"
+        HD_file = self.__outFolder + "\\HD.inp"
         f = open(HD_file, 'w')
         f.write(str(cross_count) + "\t" + str(len(reach)) + "\n")
 
         reach_iter = iter(reach)  # 获取一个迭代器。
-        while cross_index < cross_count:
+        while cross_index < len(ID):
             if ID[cross_index][0] == "-":
                 try:
                     reach_count = next(reach_iter)  # next()，返回当前数据后，reach_iter指向下一个数据。
@@ -203,20 +239,25 @@ class pre_Processing():
                     break
                 else:
                     f.write("\n\n[reach]	*******************	\n")
-                    f.write(str(reach_count[0]) + "\n")
+                    f.write(str(reach_count) + "\n")
                     cross_index += 1
                     continue
 
             stations = HD[cross_index]
-            f.write(ID[cross_index] + "\t\t" + str(len(stations)) + "\n")
+            f.write(str(len(stations)) + "\t\t" + ID[cross_index] + "\n")
             for s in stations:
                 f.write(str(s[0]) + "\t" + str(s[1]) + "\n")
             cross_index += 1
         f.close()
 
-    # 获取HD中各断面最小高程，并返回列表。
-    # （场景是，绘制河道河底的纵剖线，分析底坡变化。）
-    def get_cross_mid_ele(self, ID, HD):
+    def get_cross_min_ele(self, ID, HD):
+        '''
+        获取HD中各断面最小高程，并返回列表。
+        （场景是，绘制河道河底的纵剖线，分析底坡变化。）
+        :param ID: 河道断面id。
+        :param HD: 河道断面形状。
+        :return: id_min_ele(河道断面id和断面最小高程)。
+        '''
         id_min_ele = []
         for i, h in zip(ID, HD):
             if i[0] == "-": continue
@@ -224,14 +265,21 @@ class pre_Processing():
             id_min_ele.append([i, min(h_ele)])
         return id_min_ele
 
-    # 分段整体抬升河道断面高程（每一段应该在一个河段内）。
-    # （场景是，校正水位时发现河道高程明显偏低，需要均匀抬升相关河道。）
     def raise_reach_ele(self, parts_id, parts_dh, ID, HD):
+        '''
+        分段整体抬升河道断面高程（每一段应该在一个河段内）。
+        （场景是，校正水位时发现河道高程明显偏低，需要均匀抬升相关河道。）
+        :param parts_id:  要提升的各段河道的首末断面id。
+        :param parts_dh:  要提升的各段河道的首末断面上移量。
+        :param ID: 河道断面id。
+        :param HD: 河道形状数据。
+        :return: None。
+        '''
         for id_pair, h_pair in zip(parts_id, parts_dh):
-            start_id, stop_id = id_pair[0], id_pair[1]
+            start_id, stop_id = str(id_pair[0]), str(id_pair[1])
             start_h, stop_h = h_pair[0], h_pair[1]
             start_index, stop_index = ID.index(start_id), ID.index(stop_id)
-            ratio = (stop_h - start_h) / (stop_id - start_id + 1)
+            ratio = (stop_h - start_h) / (stop_index - start_index)
 
             index = start_index
             while index <= stop_index:
@@ -243,16 +291,70 @@ class pre_Processing():
                 HD[index] = cross
                 index += 1
 
+    def raise_bank_ele(self, parts_id, parts_dh, ID, HD):
+        '''
+        分段抬升河道的岸点高程。
+        :param parts_id:  要提升的各段河道的首末断面id。
+        :param parts_dh: 要提升的各段河道的首末断面上移量。
+        :param ID: 河道断面id。
+        :param HD: 河道形状数据。
+        :return: None。
+        '''
+        for id_pair, h_pair in zip(parts_id, parts_dh):
+            start_id, stop_id = str(id_pair[0]), str(id_pair[1])
+            start_h, stop_h = h_pair[0], h_pair[1]
+            start_index, stop_index = ID.index(start_id), ID.index(stop_id)
+            ratio = (stop_h - start_h) / (stop_index - start_index)
+
+            index = start_index
+            while index <= stop_index:
+                delta_h = start_h + ratio * (index - start_index)
+                HD[index][0][1] += delta_h
+                HD[index][-1][1] += delta_h
+                index += 1
+
+    def raise_cross_ele_without_bank(self,parts_id, parts_dh, ID, HD):
+        '''
+        整体抬升河道断面，但不包括河岸（当河岸比中间断面点低时，取中间点高程）。
+        '''
+        for id_pair, h_pair in zip(parts_id, parts_dh):
+            start_id, stop_id = str(id_pair[0]), str(id_pair[1])
+            start_h, stop_h = h_pair[0], h_pair[1]
+            start_index, stop_index = ID.index(start_id), ID.index(stop_id)
+            ratio = (stop_h - start_h) / (stop_index - start_index)
+
+            index = start_index
+            while index <= stop_index:
+                delta_h = start_h + ratio * (index - start_index)
+                n, cross = 1, HD[index]
+                while n < len(cross)-1:
+                    cross[n][1] += delta_h
+                    n += 1
+                cross_ele = [cross_station[1] for cross_station in cross]
+                max_cross_ele = max(cross_ele)
+                cross[0][1] = max_cross_ele if cross[0][1] < max_cross_ele else cross[0][1]
+                cross[-1][1] = max_cross_ele if cross[-1][1] < max_cross_ele else cross[-1][1]
+                HD[index] = cross
+                index += 1
+
+
+    # 输出IN2D的bcTimeSeries文件。
+    #def write_in2d_bcTimeSeries(self):
+    #    pass
+    #
     # 把断面转成带有高程值的三维散点，并导出到文件。
     # （场景是，将散点导入sms调整断面形状；采用默认路径及命名）
     #def turn_HD_to_scatters(self):
     #    pass
-
+    #
     # 把处理后的断面三维散点转为断面，并导出到文件（不覆盖原始HD.inp）。
     #def turn_scatters_to_HD(self, scatters_file=""):
     #    pass
-
-
+    #
+    # 获取河道岸点三维坐标。
+    # （场景是，在一二维侧向耦合模型中获取贴岸坐标点以生成相关耦合文件。）
+    #def get_bank_scatter(self):
+    #    pass
 
 
 ''' 贵仁水力模型(1.2.6), 后处理工具 '''
