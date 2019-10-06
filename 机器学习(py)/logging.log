@@ -1,0 +1,99 @@
+2019-10-04, 22-48-16 :分类模型， 精度分类评分： 0
+2019-10-04, 22-50-20 :回归模型，均方差：0
+2019-10-04, 22-51-25 :聚类问题，兰德指数分数：0
+2019-10-05, 21-13-30 :
+
+机器学习-回归问题-波士顿房价预测。
+2019-10-05, 21-13-30 :.. _boston_dataset:
+
+Boston house prices dataset
+---------------------------
+
+**Data Set Characteristics:**  
+
+    :Number of Instances: 506 
+
+    :Number of Attributes: 13 numeric/categorical predictive. Median Value (attribute 14) is usually the target.
+
+    :Attribute Information (in order):
+        - CRIM     per capita crime rate by town
+        - ZN       proportion of residential land zoned for lots over 25,000 sq.ft.
+        - INDUS    proportion of non-retail business acres per town
+        - CHAS     Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)
+        - NOX      nitric oxides concentration (parts per 10 million)
+        - RM       average number of rooms per dwelling
+        - AGE      proportion of owner-occupied units built prior to 1940
+        - DIS      weighted distances to five Boston employment centres
+        - RAD      index of accessibility to radial highways
+        - TAX      full-value property-tax rate per $10,000
+        - PTRATIO  pupil-teacher ratio by town
+        - B        1000(Bk - 0.63)^2 where Bk is the proportion of blacks by town
+        - LSTAT    % lower status of the population
+        - MEDV     Median value of owner-occupied homes in $1000's
+
+    :Missing Attribute Values: None
+
+    :Creator: Harrison, D. and Rubinfeld, D.L.
+
+This is a copy of UCI ML housing dataset.
+https://archive.ics.uci.edu/ml/machine-learning-databases/housing/
+
+
+This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University.
+
+The Boston house-price data of Harrison, D. and Rubinfeld, D.L. 'Hedonic
+prices and the demand for clean air', J. Environ. Economics & Management,
+vol.5, 81-102, 1978.   Used in Belsley, Kuh & Welsch, 'Regression diagnostics
+...', Wiley, 1980.   N.B. Various transformations are used in the table on
+pages 244-261 of the latter.
+
+The Boston house-price data has been used in many machine learning papers that address regression
+problems.   
+     
+.. topic:: References
+
+   - Belsley, Kuh & Welsch, 'Regression diagnostics: Identifying Influential Data and Sources of Collinearity', Wiley, 1980. 244-261.
+   - Quinlan,R. (1993). Combining Instance-Based and Model-Based Learning. In Proceedings on the Tenth International Conference of Machine Learning, 236-243, University of Massachusetts, Amherst. Morgan Kaufmann.
+
+2019-10-05, 21-13-30 :dict_keys(['data', 'target', 'feature_names', 'DESCR', 'filename'])
+2019-10-05, 21-13-30 :[[6.3200e-03 1.8000e+01 2.3100e+00 ... 1.5300e+01 3.9690e+02 4.9800e+00]
+ [2.7310e-02 0.0000e+00 7.0700e+00 ... 1.7800e+01 3.9690e+02 9.1400e+00]
+ [2.7290e-02 0.0000e+00 7.0700e+00 ... 1.7800e+01 3.9283e+02 4.0300e+00]
+ ...
+ [6.0760e-02 0.0000e+00 1.1930e+01 ... 2.1000e+01 3.9690e+02 5.6400e+00]
+ [1.0959e-01 0.0000e+00 1.1930e+01 ... 2.1000e+01 3.9345e+02 6.4800e+00]
+ [4.7410e-02 0.0000e+00 1.1930e+01 ... 2.1000e+01 3.9690e+02 7.8800e+00]]
+2019-10-05, 21-13-30 :['CRIM' 'ZN' 'INDUS' 'CHAS' 'NOX' 'RM' 'AGE' 'DIS' 'RAD' 'TAX' 'PTRATIO'
+ 'B' 'LSTAT']
+2019-10-05, 21-13-39 :
+
+机器学习-回归问题-波士顿房价预测。
+2019-10-05, 21-13-39 :波士顿房价数据集分割完毕, test_size=0.15。
+2019-10-05, 21-14-28 :
+
+机器学习-回归问题-波士顿房价预测。
+2019-10-05, 21-14-28 :波士顿房价数据集分割完毕, test_size=0.15。
+2019-10-05, 21-14-43 :
+
+机器学习-回归问题-波士顿房价预测。
+2019-10-05, 21-14-43 :随机森林模型创建完毕，max_depth=10, n_estimator=150.
+2019-10-05, 21-14-50 :
+
+机器学习-回归问题-波士顿房价预测。
+2019-10-05, 21-14-50 :波士顿房价数据集分割完毕, test_size=0.15。
+2019-10-05, 21-14-50 :随机森林模型创建完毕，max_depth=10, n_estimator=150.
+2019-10-05, 21-14-50 :模型训练完毕。
+2019-10-05, 21-14-50 :模型测试完毕。
+2019-10-05, 21-14-50 :模型评估-解释方差评分：0
+2019-10-05, 21-14-50 :模型评估-R平方拟合优度：0
+2019-10-05, 21-14-50 :查看模型预测结果失败：start(-1), stop(10)
+2019-10-05, 21-14-50 :查看模型预测结果失败：start(0), stop(100000)
+2019-10-05, 21-19-49 :机器学习-回归问题-波士顿房价预测。
+2019-10-05, 21-19-49 :波士顿房价数据集分割完毕, test_size=0.15。
+2019-10-05, 21-19-49 :随机森林模型创建完毕，max_depth=10, n_estimator=150.
+2019-10-05, 21-19-49 :模型训练完毕。
+2019-10-05, 21-19-49 :模型测试完毕。
+2019-10-05, 21-19-49 :模型评估-解释方差评分：0.768147
+2019-10-05, 21-19-49 :模型评估-R平方拟合优度：0.764880
+2019-10-05, 21-19-49 :查看模型预测结果失败：start(-1), stop(10)
+2019-10-05, 21-19-49 :查看模型预测结果失败：start(0), stop(100000)
