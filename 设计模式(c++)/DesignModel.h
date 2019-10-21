@@ -17,36 +17,36 @@ using std::endl;
 
 
 
-// ÊÊÅäÆ÷Ä£Ê½£¨adapter model£©
-class productExist     // adaptee, ÊÊÅäÕß£¬ ÒÑ´æÔÚµÄÀà£¬ĞèÒªÊÊÅäÆä½Ó¿ÚÎªĞèÇóµÄÀàĞÍ¡£
+// é€‚é…å™¨æ¨¡å¼ï¼ˆadapter modelï¼‰
+class productExist     // adaptee, é€‚é…è€…ï¼Œ å·²å­˜åœ¨çš„ç±»ï¼Œéœ€è¦é€‚é…å…¶æ¥å£ä¸ºéœ€æ±‚çš„ç±»å‹ã€‚
 {
 public:
 	productExist() {}
-	void apiExist(string msg="existed") { cout << msg <<" api\n"; }  // ÒÑ´æÔÚµÄ½Ó¿Ú¡£
+	void apiExist(string msg="existed") { cout << msg <<" api\n"; }  // å·²å­˜åœ¨çš„æ¥å£ã€‚
 };
 
-class productWant    // interface, ¿Í»§¶ËĞèÇó¡£
+class productWant    // interface, å®¢æˆ·ç«¯éœ€æ±‚ã€‚
 {
 public:
-	virtual void apiWant(string msg) = 0;  // ĞèÇóµÄ½Ó¿Ú¡£
+	virtual void apiWant(string msg) = 0;  // éœ€æ±‚çš„æ¥å£ã€‚
 };
 
-class productAdapter:private productExist, public productWant  // ÀàÊÊÅäÆ÷£¬×ÓÀà¿ÉÒÔÌæ»»¸¸Àà(productWant)
+class productAdapter:private productExist, public productWant  // ç±»é€‚é…å™¨ï¼Œå­ç±»å¯ä»¥æ›¿æ¢çˆ¶ç±»(productWant)
 {
 private:
-	void adapterActivity(string &msg) { msg = "wanted"; }  // ÊÊÅäÆ÷¶¯×÷£¬ÊµÏÖ½Ó¿ÚÊÊÅä¡£
+	void adapterActivity(string &msg) { msg = "wanted"; }  // é€‚é…å™¨åŠ¨ä½œï¼Œå®ç°æ¥å£é€‚é…ã€‚
 public:
 	productAdapter():productExist(), productWant(){}
-	void apiWant(string msg) { adapterActivity(msg); apiExist(msg); } // Í¨¹ıÒÑ´æÔÚµÄ½Ó¿ÚÊµÏÖĞèÇó½Ó¿Ú¡£
+	void apiWant(string msg) { adapterActivity(msg); apiExist(msg); } // é€šè¿‡å·²å­˜åœ¨çš„æ¥å£å®ç°éœ€æ±‚æ¥å£ã€‚
 };
 
-class productExist2  // ĞÂµÄÊÊÅäÕß£¬ĞÂµÄÒÑ´æÔÚÀà¡£
+class productExist2  // æ–°çš„é€‚é…è€…ï¼Œæ–°çš„å·²å­˜åœ¨ç±»ã€‚
 {
 public:
 	void apiExist(string msg) { cout << msg << " api version2\n"; }
 };
 
-class productAdapter2 :private productExist2, public productWant  // ÀàÊÊÅäÆ÷£¬¶ÔÓÚ²»Í¬µÄÒÑ´æÀà¡£
+class productAdapter2 :private productExist2, public productWant  // ç±»é€‚é…å™¨ï¼Œå¯¹äºä¸åŒçš„å·²å­˜ç±»ã€‚
 {
 private:
 	void adapterActivity(string &msg) { msg = "wanted"; }
@@ -55,18 +55,18 @@ public:
 	void apiWant(string msg) { adapterActivity(msg); apiExist(msg); }
 };
 
-class productAdapter3 :public productWant  // ¶ÔÏóÊÊÅäÆ÷£¬´ıÊÊÅäµÄ¶ÔÏó×÷Îª³ÉÔ±´«Èë¡£
+class productAdapter3 :public productWant  // å¯¹è±¡é€‚é…å™¨ï¼Œå¾…é€‚é…çš„å¯¹è±¡ä½œä¸ºæˆå‘˜ä¼ å…¥ã€‚
 {
 private:
-	productExist& __pe;  // ¶ÔÏó×÷ÎªÀàµÄÊı¾İ³ÉÔ±¡£
+	productExist& __pe;  // å¯¹è±¡ä½œä¸ºç±»çš„æ•°æ®æˆå‘˜ã€‚
 private:
 	void adapterActivity(string &msg) { msg = "wanted"; }
 public:
 	productAdapter3(productExist &pe):__pe(pe), productWant(){}
-	void apiWant(string msg) { adapterActivity(msg); __pe.apiExist(msg); }  // µ÷ÓÃÒÑ´æ¶ÔÏóµÄ½Ó¿Ú¡£
+	void apiWant(string msg) { adapterActivity(msg); __pe.apiExist(msg); }  // è°ƒç”¨å·²å­˜å¯¹è±¡çš„æ¥å£ã€‚
 };
 
-class productAdapter4 :public productWant  // ¶ÔÏóÊÊÅäÆ÷£¬¶ÔÓÚ²»Í¬µÄÒÑ´æ¶ÔÏó¡£
+class productAdapter4 :public productWant  // å¯¹è±¡é€‚é…å™¨ï¼Œå¯¹äºä¸åŒçš„å·²å­˜å¯¹è±¡ã€‚
 {
 private:
 	productExist2 & __pe;  
@@ -77,7 +77,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	productExist* pe = new productExist();
@@ -104,29 +104,29 @@ public:
 
 
 
-// ×°ÊÎÆ÷Ä£Ê½(decorator model)
-class Car  // ³éÏó»ùÀà
+// è£…é¥°å™¨æ¨¡å¼(decorator model)
+class Car  // æŠ½è±¡åŸºç±»
 {
 public:
-	virtual void features() = 0;  // »ù±¾¹¦ÄÜ(½Ó¿Ú)¡£
+	virtual void features() = 0;  // åŸºæœ¬åŠŸèƒ½(æ¥å£)ã€‚
 };
 
-class superCar:public Car  // ¾ßÌå¶ÔÏóÀà¡£
+class superCar:public Car  // å…·ä½“å¯¹è±¡ç±»ã€‚
 {
 	void features() { cout << "This is superCar.\n"; }
 };
 
-class decoratorCar : public Car  // ³éÏó×°ÊÎÀà£¬¼Ì³Ğ³éÏó»ùÀà£¬ÒÔ»ñµÃÏàÓ¦½Ó¿Ú¡£
+class decoratorCar : public Car  // æŠ½è±¡è£…é¥°ç±»ï¼Œç»§æ‰¿æŠ½è±¡åŸºç±»ï¼Œä»¥è·å¾—ç›¸åº”æ¥å£ã€‚
 {
 protected:
 	Car* __car; 
 public:
 	decoratorCar(Car* car):__car(car), Car(){}
-	void features() { __car->features(); addFeature(); }  // ÔÚ»ùÀà½Ó¿ÚµÄ»ù´¡ÉÏÔö¼Ó¹¦ÄÜ¡£
-	virtual void addFeature() = 0;  // ×°ÊÎÆ÷µÄĞÂÔö¹¦ÄÜ¡£
+	void features() { __car->features(); addFeature(); }  // åœ¨åŸºç±»æ¥å£çš„åŸºç¡€ä¸Šå¢åŠ åŠŸèƒ½ã€‚
+	virtual void addFeature() = 0;  // è£…é¥°å™¨çš„æ–°å¢åŠŸèƒ½ã€‚
 };
 
-class runCar : public decoratorCar  // ÊµÏÖ×°ÊÎÆ÷£¨¶¯Ì¬¼ÓÔØĞÂ¹¦ÄÜ£©
+class runCar : public decoratorCar  // å®ç°è£…é¥°å™¨ï¼ˆåŠ¨æ€åŠ è½½æ–°åŠŸèƒ½ï¼‰
 {
 public:
 	runCar(Car* car):decoratorCar(car){}
@@ -148,7 +148,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	Car* car = new superCar();
@@ -173,35 +173,35 @@ public:
 
 
 
-// ×éºÏÄ£Ê½£¨compsite model£©
-class component  // ³éÏóÍ³Ò»¹¹¼ş£¬ Ìá¹©Ò»ÖÂµÄ·ÃÎÊĞÔ¡£
+// ç»„åˆæ¨¡å¼ï¼ˆcompsite modelï¼‰
+class component  // æŠ½è±¡ç»Ÿä¸€æ„ä»¶ï¼Œ æä¾›ä¸€è‡´çš„è®¿é—®æ€§ã€‚
 {
 private:
 	string __name;
 public:
 	component(string name):__name(name){}
-	virtual ~component(){}   // ĞéÎö¹¹º¯Êı¡£
+	virtual ~component(){}   // è™šææ„å‡½æ•°ã€‚
 
 	virtual void operation() = 0;
 	string getName() { return __name; }
-	virtual void add(component*) = 0;       // Ìí¼Ó¹¹¼ş¡£
-	virtual void remove(component*) = 0;    // É¾³ı¹¹¼ş¡£
-	virtual component* getChild(int) = 0;   // »ñÈ¡×Ó¹¹¼ş¡£
+	virtual void add(component*) = 0;       // æ·»åŠ æ„ä»¶ã€‚
+	virtual void remove(component*) = 0;    // åˆ é™¤æ„ä»¶ã€‚
+	virtual component* getChild(int) = 0;   // è·å–å­æ„ä»¶ã€‚
 };
 
-class leaf :public component  // Ò¶×Ó¹¹¼ş£¬ÎŞ×Ó¹¹¼ş¡£
+class leaf :public component  // å¶å­æ„ä»¶ï¼Œæ— å­æ„ä»¶ã€‚
 {
 public:
 	leaf(string name):component(name){}
 	virtual ~leaf(){}
 
 	void operation(){ cout << "Leaf " << getName() << " Operation.\n"; }
-	void add(component* pcom){}   //Ò¶×Ó¹¹¼ş£¬¿Õ²Ù×÷¡£
+	void add(component* pcom){}   //å¶å­æ„ä»¶ï¼Œç©ºæ“ä½œã€‚
 	void remove(component* pcom){}
-	component* getChild(int index) { return nullptr; }  // ÎŞ×Ó¹¹¼ş¡£
+	component* getChild(int index) { return nullptr; }  // æ— å­æ„ä»¶ã€‚
 };
 
-class composite :public component  // ×éºÏÆ÷£¬ Ê÷Ö¦¹¹¼ş¡£
+class composite :public component  // ç»„åˆå™¨ï¼Œ æ ‘ææ„ä»¶ã€‚
 {
 private:
 	vector<component*> __vecComp;
@@ -215,11 +215,11 @@ public:
 			if (*it != nullptr)
 			{
 				cout << "composite " << getName() << " delete:" << (*it)->getName() << endl;
-				delete *it;    // É¾³ı¸Ã½Úµã¹¹¼şÖ¸Õë¡£
-				*it = nullptr; // ½Úµã¹¹¼şÎª¿Õ¡£
+				delete *it;    // åˆ é™¤è¯¥èŠ‚ç‚¹æ„ä»¶æŒ‡é’ˆã€‚
+				*it = nullptr; // èŠ‚ç‚¹æ„ä»¶ä¸ºç©ºã€‚
 			}
-			__vecComp.erase(it); // É¾³ı¸Ã½Úµã¹¹¼ş¡£
-			it = __vecComp.begin(); // ¸üĞÂµü´úÆ÷¡£
+			__vecComp.erase(it); // åˆ é™¤è¯¥èŠ‚ç‚¹æ„ä»¶ã€‚
+			it = __vecComp.begin(); // æ›´æ–°è¿­ä»£å™¨ã€‚
 		}
 	}
 
@@ -262,7 +262,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	component *pcompositeA = new composite("compositeA");
@@ -284,44 +284,44 @@ public:
 
 
 
-// Íâ¹ÛÄ£Ê½£¨facade model£©
-class LightSystem  // ×ÓÏµÍ³Àà¡£
+// å¤–è§‚æ¨¡å¼ï¼ˆfacade modelï¼‰
+class LightSystem  // å­ç³»ç»Ÿç±»ã€‚
 {
 public:
-	void on(){cout << "¿ªµÆ..." << endl;}
-	void off(){	cout << "¹ØµÆ..." << endl;}
+	void on(){cout << "å¼€ç¯..." << endl;}
+	void off(){	cout << "å…³ç¯..." << endl;}
 };
 
 class MovieSystem
 {
 public:
-	void on(){cout << "·ÅµçÓ°..." << endl;}
-	void off(){	cout << "¹Ø±ÕµçÓ°..." << endl;}
+	void on(){cout << "æ”¾ç”µå½±..." << endl;}
+	void off(){	cout << "å…³é—­ç”µå½±..." << endl;}
 };
 
 class SounderSystem
 {
 public:
-	void on(){ cout << "´ò¿ªÒôÏì..." << endl;}
-	void off(){	cout << "¹Ø±ÕÒôÏì..." << endl;}
+	void on(){ cout << "æ‰“å¼€éŸ³å“..." << endl;}
+	void off(){	cout << "å…³é—­éŸ³å“..." << endl;}
 };
 
 class MusicSystem
 {
 public:
-	void on(){ cout << "·ÅÒôÀÖ..." << endl;	}
-	void off(){	cout << "¹Ø±ÕÒôÀÖ..." << endl;}
+	void on(){ cout << "æ”¾éŸ³ä¹..." << endl;	}
+	void off(){	cout << "å…³é—­éŸ³ä¹..." << endl;}
 };
 
-class HomeSystem  //Íâ¹ÛÄ£Ê½Àà£¬ÖÇÄÜÉú»î£¬¸øÓÃ»§Ìá¹©¼ò½àµÄ½çÃæ
+class HomeSystem  //å¤–è§‚æ¨¡å¼ç±»ï¼Œæ™ºèƒ½ç”Ÿæ´»ï¼Œç»™ç”¨æˆ·æä¾›ç®€æ´çš„ç•Œé¢
 {
 public:	
-	void OpenKTV()  //KTVÄ£Ê½...
+	void OpenKTV()  //KTVæ¨¡å¼...
 	{
 		light.off();
 		sounder.on();
 		music.on();
-		cout << "*********KTVÄ£Ê½********" << endl;
+		cout << "*********KTVæ¨¡å¼********" << endl;
 	}
 
 	void CloseKTV()
@@ -329,22 +329,22 @@ public:
 		light.on();
 		sounder.off();
 		music.off();
-		cout << "**********KTVÄ£Ê½ ÒÑ¾­¹Ø±Õ********" << endl;
+		cout << "**********KTVæ¨¡å¼ å·²ç»å…³é—­********" << endl;
 	}
 	
-	void OpenMovie()  //¹ÛÓ°Ä£Ê½...
+	void OpenMovie()  //è§‚å½±æ¨¡å¼...
 	{
 		light.off();
 		sounder.on();
 		sounder.on();
-		cout << "*********¼ÒÍ¥Ó°ÔºÄ£Ê½********" << endl;
+		cout << "*********å®¶åº­å½±é™¢æ¨¡å¼********" << endl;
 	}
 	void CloseMovie()
 	{
 		light.on();
 		sounder.off();
 		sounder.off();
-		cout << "*********¼ÒÍ¥Ó°ÔºÄ£Ê½ ÒÑ¾­¹Ø±Õ********" << endl;
+		cout << "*********å®¶åº­å½±é™¢æ¨¡å¼ å·²ç»å…³é—­********" << endl;
 	}
 
 private:
@@ -355,14 +355,14 @@ private:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	HomeSystem home;
-//	home.OpenKTV();//¿ªÆôKTVÄ£Ê½
+//	home.OpenKTV();//å¼€å¯KTVæ¨¡å¼
 //	home.CloseKTV();
 //
-//	home.OpenMovie();//¿ªÆôµçÓ°Ä£Ê½
+//	home.OpenMovie();//å¼€å¯ç”µå½±æ¨¡å¼
 //	home.CloseMovie();
 //
 //
@@ -372,20 +372,20 @@ private:
 
 
 
-// ´úÀíÄ£Ê½£¨proxy model£©
-class iFactory   // Í³Ò»³éÏó½Ó¿ÚÀà¡£
+// ä»£ç†æ¨¡å¼ï¼ˆproxy modelï¼‰
+class iFactory   // ç»Ÿä¸€æŠ½è±¡æ¥å£ç±»ã€‚
 {
 public:
 	virtual void makeProduct() = 0;
 };
 
-class phoneFactory : public iFactory  // ÕæÊµÀà¡£
+class phoneFactory : public iFactory  // çœŸå®ç±»ã€‚
 {
 public:
 	void makeProduct() { cout << "make phone.\n"; }
 };
 
-class proxyFactory : public iFactory  // ´úÀíÀà£¬ÔÚÕæÊµ¶ÔÏóºÍµ÷ÓÃ¶ÔÏó¼äÉèÖÃ¸ôÀë¡£
+class proxyFactory : public iFactory  // ä»£ç†ç±»ï¼Œåœ¨çœŸå®å¯¹è±¡å’Œè°ƒç”¨å¯¹è±¡é—´è®¾ç½®éš”ç¦»ã€‚
 {
 private:
 	iFactory * __realObj;
@@ -396,7 +396,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	iFactory* factory = new phoneFactory();
@@ -410,8 +410,8 @@ public:
 
 
 
-// ÏíÔªÄ£Ê½£¨flyweight model£©
-class iPlayer  // ´´½¨³éÏóÏíÔªÀà¡£
+// äº«å…ƒæ¨¡å¼ï¼ˆflyweight modelï¼‰
+class iPlayer  // åˆ›å»ºæŠ½è±¡äº«å…ƒç±»ã€‚
 {
 public:
 	virtual ~iPlayer(){}
@@ -419,17 +419,17 @@ public:
 	virtual void mission() = 0;
 
 protected:
-	string __task;   // ÄÚ²¿×´Ì¬¡£
-	string __weapon; // Íâ²¿×´Ì¬¡£
+	string __task;   // å†…éƒ¨çŠ¶æ€ã€‚
+	string __weapon; // å¤–éƒ¨çŠ¶æ€ã€‚
 };
 
-class terrorist : public iPlayer  // ¾ßÌåÏíÔª¡£
+class terrorist : public iPlayer  // å…·ä½“äº«å…ƒã€‚
 {
 public:
 	terrorist() { __task = "plant a bomb"; }
 
 	virtual void assignWeapon(string weapon) override 
-	{ __weapon = weapon; }  // override,Ç¿ÖÆÖØÔØ»ùÀàĞéº¯Êı¡£
+	{ __weapon = weapon; }  // override,å¼ºåˆ¶é‡è½½åŸºç±»è™šå‡½æ•°ã€‚
 	virtual void mission() override 
 	{ cout << "terrorist with " << __weapon << ", " << "task is " << __task << endl; }
 };
@@ -445,14 +445,14 @@ public:
 	{ cout << "counter terrorist with " << __weapon << ", " << "task is " << __task << endl; }
 };
 
-class playerFactory  // ÏíÔª¹¤³§¡£
+class playerFactory  // äº«å…ƒå·¥å‚ã€‚
 {
 public:
-	static iPlayer* getPlayer(string type)  // ¾²Ì¬º¯Êı¡£
+	static iPlayer* getPlayer(string type)  // é™æ€å‡½æ•°ã€‚
 	{
 		iPlayer* p = nullptr;
 
-		// Èç¹û T / CT ¶ÔÏó´æÔÚ£¬ÔòÖ±½Ó´ÓÏíÔª³Ø»ñÈ¡£»·ñÔò£¬´´½¨Ò»¸öĞÂ¶ÔÏó²¢Ìí¼Óµ½ÏíÔª³ØÖĞ£¬È»ºó·µ»Ø¡£
+		// å¦‚æœ T / CT å¯¹è±¡å­˜åœ¨ï¼Œåˆ™ç›´æ¥ä»äº«å…ƒæ± è·å–ï¼›å¦åˆ™ï¼Œåˆ›å»ºä¸€ä¸ªæ–°å¯¹è±¡å¹¶æ·»åŠ åˆ°äº«å…ƒæ± ä¸­ï¼Œç„¶åè¿”å›ã€‚
 		if (__map.find(type) != __map.end())
 		{
 			p = __map[type];
@@ -474,25 +474,25 @@ public:
 				cout << "unreachable code!\n";
 			}
 
-			__map.insert(std::make_pair(type, p)); // Ò»µ©´´½¨£¬½«Æä²åÈëmapÖĞ£»make_pair, ½«Á½¸öÊı¾İºÏ³ÉÒ»¸öÔª×é¡£
+			__map.insert(std::make_pair(type, p)); // ä¸€æ—¦åˆ›å»ºï¼Œå°†å…¶æ’å…¥mapä¸­ï¼›make_pair, å°†ä¸¤ä¸ªæ•°æ®åˆæˆä¸€ä¸ªå…ƒç»„ã€‚
 		}
 		return p;
 	}
 
 private:
-	static map<string, iPlayer*>  __map;  // ¾²Ì¬Êı¾İ³ÉÔ±£¬ÏíÔª³Ø¡£
+	static map<string, iPlayer*>  __map;  // é™æ€æ•°æ®æˆå‘˜ï¼Œäº«å…ƒæ± ã€‚
 public:
-	static string __playerType[];  // Íæ¼ÒÀàĞÍ¡£
-	static string __weapons[];     // ÎäÆ÷ÀàĞÍ¡£
+	static string __playerType[];  // ç©å®¶ç±»å‹ã€‚
+	static string __weapons[];     // æ­¦å™¨ç±»å‹ã€‚
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
-//// ÏíÔª³Ø³õÊ¼»¯Îª¿Õ, Àà¾²Ì¬¶ÔÏóµ¥¶À³õÊ¼»¯¡£
+// ä½¿ç”¨æµç¨‹ã€‚
+//// äº«å…ƒæ± åˆå§‹åŒ–ä¸ºç©º, ç±»é™æ€å¯¹è±¡å•ç‹¬åˆå§‹åŒ–ã€‚
 //map<std::string, iPlayer*> playerFactory::__map = map<string, iPlayer*>();
-//// Íæ¼ÒÀàĞÍ³õÊ¼»¯¡£
+//// ç©å®¶ç±»å‹åˆå§‹åŒ–ã€‚
 //string playerFactory::__playerType[2] = { "T", "CT" };
-//// Íæ¼ÒÎäÆ÷³õÊ¼»¯¡£
+//// ç©å®¶æ­¦å™¨åˆå§‹åŒ–ã€‚
 //string playerFactory::__weapons[4] = { "AK-47", "Maverick", "Gut Knife", "Desert Eagle" };
 //
 //int main(int argc, char* argv[])
@@ -502,22 +502,22 @@ public:
 //
 //	int playerLen = 2, weaponsLen = 4;
 //
-//	// ¼ÙÉè£¬ÓÎÏ·ÖĞÓĞÊ®Î»Íæ¼Ò
+//	// å‡è®¾ï¼Œæ¸¸æˆä¸­æœ‰åä½ç©å®¶
 //	for (int i = 0; i < 10; i++)
 //	{
-//		// »ñÈ¡Ëæ»úÍæ¼ÒºÍÎäÆ÷
+//		// è·å–éšæœºç©å®¶å’Œæ­¦å™¨
 //		int typeIndex = rand() % playerLen;
 //		int weaponIndex = rand() % weaponsLen;
 //		string type = playerFactory::__playerType[typeIndex];
 //		string weapon = playerFactory::__weapons[weaponIndex];
 //
-//		// »ñÈ¡Íæ¼Ò
+//		// è·å–ç©å®¶
 //		iPlayer *p = playerFactory::getPlayer(type);
 //
-//		// ´ÓÎäÆ÷¿âÖĞËæ»ú·ÖÅäÎäÆ÷
+//		// ä»æ­¦å™¨åº“ä¸­éšæœºåˆ†é…æ­¦å™¨
 //		p->assignWeapon(weapon);
 //
-//		// ÅÉÍæ¼ÒÈ¥Ö´ĞĞÈÎÎñ
+//		// æ´¾ç©å®¶å»æ‰§è¡Œä»»åŠ¡
 //		p->mission();
 //	}
 //
@@ -528,37 +528,37 @@ public:
 
 
 
-// ÇÅ½ÓÄ£Ê½£¨bridge model£©
-class Abstraction           // ½Ó¿Ú³éÏó»ùÀà£¬ÉùÃ÷¸ÃÀàËùĞèµÄ½Ó¿Ú(½Ó¿Ú¶Ë³éÏó)¡£
+// æ¡¥æ¥æ¨¡å¼ï¼ˆbridge modelï¼‰
+class Abstraction           // æ¥å£æŠ½è±¡åŸºç±»ï¼Œå£°æ˜è¯¥ç±»æ‰€éœ€çš„æ¥å£(æ¥å£ç«¯æŠ½è±¡)ã€‚
 {
 public:
 	virtual ~Abstraction() {};
-	virtual void Operation() = 0;  // ÉùÃ÷½Ó¿Ú£¬±íÊ¾¸ÃÀàËùÖ§³ÖµÄ²Ù×÷£»³éÏó»ùÀà¡£
+	virtual void Operation() = 0;  // å£°æ˜æ¥å£ï¼Œè¡¨ç¤ºè¯¥ç±»æ‰€æ”¯æŒçš„æ“ä½œï¼›æŠ½è±¡åŸºç±»ã€‚
 
 protected:
-	Abstraction() {};              // Ö»ÔÊĞíÔÚÅÉÉúÀàÖĞÉú³É¡£
+	Abstraction() {};              // åªå…è®¸åœ¨æ´¾ç”Ÿç±»ä¸­ç”Ÿæˆã€‚
 };
 
-class AbstractionImplement  //ÊµÏÖ³éÏó»ùÀà£¬¶¨ÒåÁË½Ó¿ÚÊµÏÖ£¨ÊµÏÖ¶Ë³éÏó£©¡£
+class AbstractionImplement  //å®ç°æŠ½è±¡åŸºç±»ï¼Œå®šä¹‰äº†æ¥å£å®ç°ï¼ˆå®ç°ç«¯æŠ½è±¡ï¼‰ã€‚
 {
 public:
 	virtual ~AbstractionImplement() {};
-	virtual void work() = 0;    // ¶¨ÒåÊµÏÖ½Ó¿Ú£¨ÊµÏÖ½Ó¿ÚÓëAbstractionµÄ½Ó¿Ú²»ÓÃÏàÍ¬£©¡£
+	virtual void work() = 0;    // å®šä¹‰å®ç°æ¥å£ï¼ˆå®ç°æ¥å£ä¸Abstractionçš„æ¥å£ä¸ç”¨ç›¸åŒï¼‰ã€‚
 
 protected:
 	AbstractionImplement() {};
 };
 
-class RefinedAbstractionA :public Abstraction   // À©³äAbstraction¶¨ÒåµÄ½Ó¿Ú¡£
+class RefinedAbstractionA :public Abstraction   // æ‰©å……Abstractionå®šä¹‰çš„æ¥å£ã€‚
 {
 public:
 	RefinedAbstractionA(AbstractionImplement* imp):__imp(imp){}
 	virtual ~RefinedAbstractionA() { delete __imp; __imp = nullptr;}
-	virtual void Operation()  override  // µ÷ÓÃAbstractionImplement¶ÔÏó£¬²¢ÍØÕ¹Abstraction½Ó¿Ú¡£
-	{cout << "refined abstractionA operation: "; __imp->work();}  // ÕâÀïµ÷ÓÃ__impµÄ³ÉÔ±£¬ËùÒÔ__impµÄÀà±ØĞëÔÚ´ËÖ®Ç°¶¨Òå¡£   
+	virtual void Operation()  override  // è°ƒç”¨AbstractionImplementå¯¹è±¡ï¼Œå¹¶æ‹“å±•Abstractionæ¥å£ã€‚
+	{cout << "refined abstractionA operation: "; __imp->work();}  // è¿™é‡Œè°ƒç”¨__impçš„æˆå‘˜ï¼Œæ‰€ä»¥__impçš„ç±»å¿…é¡»åœ¨æ­¤ä¹‹å‰å®šä¹‰ã€‚   
 
 private:
-	AbstractionImplement* __imp; // Î¬»¤Ò»¸öÖ¸ÏòAbstractionImplementµÄÖ¸Õë¡£
+	AbstractionImplement* __imp; // ç»´æŠ¤ä¸€ä¸ªæŒ‡å‘AbstractionImplementçš„æŒ‡é’ˆã€‚
 };
 
 class RefinedAbstractionB :public Abstraction
@@ -573,7 +573,7 @@ private:
 	AbstractionImplement* __imp;
 };
 
-class ConcreteAbstractionImplementA :public AbstractionImplement  // ¾ßÌåÊµÏÖÀà¡£
+class ConcreteAbstractionImplementA :public AbstractionImplement  // å…·ä½“å®ç°ç±»ã€‚
 {
 public:
 	ConcreteAbstractionImplementA() {};
@@ -590,16 +590,16 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	AbstractionImplement* imp = new ConcreteAbstractionImplementA();
 //	Abstraction* abs = new RefinedAbstractionA(imp);
 //	abs->Operation();
 //
-//	imp = new ConcreteAbstractionImplementB();  // ÊµÏÖ·½Ê½¡£
-//	abs = new RefinedAbstractionA(imp);         // ½Ó¿ÚÀàĞÍ¡£
-//	abs->Operation();                           // ½Ó¿ÚÊµÏÖ¡£
+//	imp = new ConcreteAbstractionImplementB();  // å®ç°æ–¹å¼ã€‚
+//	abs = new RefinedAbstractionA(imp);         // æ¥å£ç±»å‹ã€‚
+//	abs->Operation();                           // æ¥å£å®ç°ã€‚
 //
 //	imp = new ConcreteAbstractionImplementA();
 //	abs = new RefinedAbstractionB(imp);
@@ -615,11 +615,11 @@ public:
 
 
 
-// µ¥ÀıÄ£Ê½£¨singleton model£©
-class Singleton  //¼òµ¥Ä£Ê½£ºÀÁººÄ£Ê½£¬ĞèÒªÊµÀıÊ±²Å´´½¨¡£
+// å•ä¾‹æ¨¡å¼ï¼ˆsingleton modelï¼‰
+class Singleton  //ç®€å•æ¨¡å¼ï¼šæ‡’æ±‰æ¨¡å¼ï¼Œéœ€è¦å®ä¾‹æ—¶æ‰åˆ›å»ºã€‚
 {
 public:
-	static Singleton * GetInstance()// ¾²Ì¬º¯Êı£¬È«ÀàÎ¨Ò»¡£
+	static Singleton * GetInstance()// é™æ€å‡½æ•°ï¼Œå…¨ç±»å”¯ä¸€ã€‚
 	{
 		if (!__pInstance) __pInstance = new Singleton();
 		__count++;
@@ -632,9 +632,9 @@ public:
 
 private:
 	static int __count;
-	static Singleton* __pInstance;  // Î¬»¤Ò»¸öÎ¨Ò»Ö¸Ïòsingleton¶ÔÏóµÄ¾²Ì¬Ö¸Õë¡£
+	static Singleton* __pInstance;  // ç»´æŠ¤ä¸€ä¸ªå”¯ä¸€æŒ‡å‘singletonå¯¹è±¡çš„é™æ€æŒ‡é’ˆã€‚
 
-private:     // ·â±ÕÈÎºÎÍâ²¿´´½¨ÊµÀıµÄ·½Ê½¡£
+private:     // å°é—­ä»»ä½•å¤–éƒ¨åˆ›å»ºå®ä¾‹çš„æ–¹å¼ã€‚
 	Singleton() {}
 	Singleton(const Singleton&) {}
 	Singleton& operator = (const Singleton&) {};
@@ -643,15 +643,15 @@ private:     // ·â±ÕÈÎºÎÍâ²¿´´½¨ÊµÀıµÄ·½Ê½¡£
 
 /*
 -------------------------------------------------------
-ÎÊÌâ£º
-1¡¢ĞèÒªÊÖ¶¯ÊÍ·Å__pInstance(·½°¸Ò»¡¢¶ş¡¢Èı)£»
-2¡¢Èç¹ûÔÚ¶àÏß³Ì»·¾³²»°²È«£¨·½°¸ËÄ¡¢·½°¸Îå)¡£
+é—®é¢˜ï¼š
+1ã€éœ€è¦æ‰‹åŠ¨é‡Šæ”¾__pInstance(æ–¹æ¡ˆä¸€ã€äºŒã€ä¸‰)ï¼›
+2ã€å¦‚æœåœ¨å¤šçº¿ç¨‹ç¯å¢ƒä¸å®‰å…¨ï¼ˆæ–¹æ¡ˆå››ã€æ–¹æ¡ˆäº”)ã€‚
 -------------------------------------------------------
 */
 
 
-// ·½°¸Ò»£º×¢²áÍË³öº¯Êıatexit(RealesSingleton)¡£
-// int atexit(void(*function)(void)); ×¢²á²ÎÊıÎªÎŞ²ÎÊıÎŞ·µ»ØµÄº¯ÊıÖ¸Õë£»µ÷ÓÃºÍ×¢²áË³ĞòÏà·´. 
+// æ–¹æ¡ˆä¸€ï¼šæ³¨å†Œé€€å‡ºå‡½æ•°atexit(RealesSingleton)ã€‚
+// int atexit(void(*function)(void)); æ³¨å†Œå‚æ•°ä¸ºæ— å‚æ•°æ— è¿”å›çš„å‡½æ•°æŒ‡é’ˆï¼›è°ƒç”¨å’Œæ³¨å†Œé¡ºåºç›¸å. 
 void RealesSingleton()
 {
 	delete Singleton::GetInstance();
@@ -659,40 +659,40 @@ void RealesSingleton()
 }
 
 
-// ·½°¸¶ş£ºÊ¹ÓÃÖÇÄÜÖ¸Õëauto_ptr<Singleton> m_pInstance¡£
+// æ–¹æ¡ˆäºŒï¼šä½¿ç”¨æ™ºèƒ½æŒ‡é’ˆauto_ptr<Singleton> m_pInstanceã€‚
 
 
-// ·½°¸Èı£ºÊ¹ÓÃÄÚÇ¶ÀàºÍÒ»¸ö¾²Ì¬³ÉÔ±¡£
-// ³ÌĞò½áÊøÊ±»áÎö¹¹ËùÓĞÈ«¾Ö±äÁ¿£¬°üÀ¨ÀàµÄ¾²Ì¬³ÉÔ±¡£ÒÔ´Ë£¬ÔÚÀàÄÚÉèÒ»¸öË½ÓĞ¾²Ì¬³ÉÔ±¸ºÔğÖ¸ÕëÎö¹¹¡£
+// æ–¹æ¡ˆä¸‰ï¼šä½¿ç”¨å†…åµŒç±»å’Œä¸€ä¸ªé™æ€æˆå‘˜ã€‚
+// ç¨‹åºç»“æŸæ—¶ä¼šææ„æ‰€æœ‰å…¨å±€å˜é‡ï¼ŒåŒ…æ‹¬ç±»çš„é™æ€æˆå‘˜ã€‚ä»¥æ­¤ï¼Œåœ¨ç±»å†…è®¾ä¸€ä¸ªç§æœ‰é™æ€æˆå‘˜è´Ÿè´£æŒ‡é’ˆææ„ã€‚
 class Singleton2
 {
 public:
 	static Singleton2 * GetInstance()
 	{
-		if (__pInstance.get() == nullptr) __pInstance.reset(new Singleton2);  // ÖÇÄÜÖ¸ÕëµÄÊ¹ÓÃ£¨Àà£©¡£
+		if (__pInstance.get() == nullptr) __pInstance.reset(new Singleton2);  // æ™ºèƒ½æŒ‡é’ˆçš„ä½¿ç”¨ï¼ˆç±»ï¼‰ã€‚
 		__count++;
 		return __pInstance.get();
 	}
 
 	void display() { cout << "singleton2 has been called " << __count << " times.\n"; }
 
-	~Singleton2() {}  // ÕâÀïµÄĞé¹¹º¯ÊıÃ»ÓĞ²Ù×÷¡£
+	~Singleton2() {}  // è¿™é‡Œçš„è™šæ„å‡½æ•°æ²¡æœ‰æ“ä½œã€‚
 
 private:
 	static int __count;
-	static auto_ptr<Singleton2> __pInstance;  // ²ÉÓÃÖÇÄÜÖ¸Õë±£´æsingleton¶ÔÏó¡£
+	static auto_ptr<Singleton2> __pInstance;  // é‡‡ç”¨æ™ºèƒ½æŒ‡é’ˆä¿å­˜singletonå¯¹è±¡ã€‚
 
 private:
-	class Clear  // ÄÚÇ¶Àà, Èç¹ûÌåÍâ¶¨ÒåSingleton2::Clear::~Clear()¡£
+	class Clear  // å†…åµŒç±», å¦‚æœä½“å¤–å®šä¹‰Singleton2::Clear::~Clear()ã€‚
 	{
 	public:
 		~Clear()
 		{
-			__pInstance.release();   // clear¶ÔÏóÎö¹¹Ê±£¬ÊÍ·Å__pInstance. 
+			__pInstance.release();   // clearå¯¹è±¡ææ„æ—¶ï¼Œé‡Šæ”¾__pInstance. 
 			cout << "singleton2 has been deleted.\n";
 		}
 	};
-	static Clear __clear;  // ¾²Ì¬³ÉÔ±£¬ĞèÒª³õÊ¼»¯£¨¼´×Ü»á´æÔÚÒ»¸öclear¶ÔÏó£¬Îö¹¹Ê±µ÷ÓÃ~clear£©¡£
+	static Clear __clear;  // é™æ€æˆå‘˜ï¼Œéœ€è¦åˆå§‹åŒ–ï¼ˆå³æ€»ä¼šå­˜åœ¨ä¸€ä¸ªclearå¯¹è±¡ï¼Œææ„æ—¶è°ƒç”¨~clearï¼‰ã€‚
 
 private:
 	Singleton2() {}
@@ -701,22 +701,22 @@ private:
 };
 
 
-// ·½°¸ËÄ£ºË«¼à²âËø»úÖÆ¡£
+// æ–¹æ¡ˆå››ï¼šåŒç›‘æµ‹é”æœºåˆ¶ã€‚
 class LockGuard
 {
 public:
-	LockGuard() { InitializeCriticalSection(&__cs); }  // ³õÊ¼»¯ÁÙ½çÇø±äÁ¿¡£
-	~LockGuard() { DeleteCriticalSection(&__cs); }     // ÊÍ·ÅÁÙ½çÇø±äÁ¿¡£
+	LockGuard() { InitializeCriticalSection(&__cs); }  // åˆå§‹åŒ–ä¸´ç•ŒåŒºå˜é‡ã€‚
+	~LockGuard() { DeleteCriticalSection(&__cs); }     // é‡Šæ”¾ä¸´ç•ŒåŒºå˜é‡ã€‚
 
 private:
-	void Guard() { EnterCriticalSection(&__cs); }    // ÅĞ¶ÏÊÇ·ñÄÜ¼ÓÈëµ±Ç°ÁÙ½çÇø¡£
-	void unGuard() { LeaveCriticalSection(&__cs); }  // ÊÍ·Å×ÊÔ´º¯Êı£¬Àë¿ªÁÙ½çÇø¡£
+	void Guard() { EnterCriticalSection(&__cs); }    // åˆ¤æ–­æ˜¯å¦èƒ½åŠ å…¥å½“å‰ä¸´ç•ŒåŒºã€‚
+	void unGuard() { LeaveCriticalSection(&__cs); }  // é‡Šæ”¾èµ„æºå‡½æ•°ï¼Œç¦»å¼€ä¸´ç•ŒåŒºã€‚
 
 private:
-	CRITICAL_SECTION __cs;  // ¶àÏß³ÌÍ¬Ê±·ÃÎÊµÄ×ÊÔ´£¨ÁÙ½çÇø£©
+	CRITICAL_SECTION __cs;  // å¤šçº¿ç¨‹åŒæ—¶è®¿é—®çš„èµ„æºï¼ˆä¸´ç•ŒåŒºï¼‰
 
 public:
-	class CGuard  // ¸ÉÂïµÄ£¿
+	class CGuard  // å¹²å˜›çš„ï¼Ÿ
 	{
 	public:
 		CGuard(LockGuard &lg) :__lg(lg) { __lg.Guard(); }
@@ -736,7 +736,7 @@ public:
 	{
 		if (__pInstance == nullptr)
 		{
-			LockGuard::CGuard gd(__lg); // ´´½¨Ò»¸öÁÙÊ±CGuard¶ÔÏó£¬ÅĞ¶ÏÊÇ·ñ¿ÉÒÔ½øÈë£¬Àë¿ªÊ±Îö¹¹ÊÍ·Å¡£
+			LockGuard::CGuard gd(__lg); // åˆ›å»ºä¸€ä¸ªä¸´æ—¶CGuardå¯¹è±¡ï¼Œåˆ¤æ–­æ˜¯å¦å¯ä»¥è¿›å…¥ï¼Œç¦»å¼€æ—¶ææ„é‡Šæ”¾ã€‚
 			if (__pInstance == nullptr) __pInstance = new Singleton3();
 		}
 		__count++;
@@ -745,7 +745,7 @@ public:
 
 private:
 	static int __count;
-	static LockGuard __lg;  // Ëø£¬ ÓÃÓÚÅĞ¶ÏÊÇ·ñ¿ÉÒÔ½øÈëÁÙ½çÇø£¨Î¨Ò»singleton£©¡£
+	static LockGuard __lg;  // é”ï¼Œ ç”¨äºåˆ¤æ–­æ˜¯å¦å¯ä»¥è¿›å…¥ä¸´ç•ŒåŒºï¼ˆå”¯ä¸€singletonï¼‰ã€‚
 	static Singleton3 * __pInstance;
 
 private:
@@ -767,7 +767,7 @@ private:
 };
 
 
-// ·½°¸Îå£º¶öººÄ£Ê½£¬²»¹ÜÊÇ·ñ»áÓÃµ½£¬³ÌĞò¿ªÊ¼¼´´´½¨ÊµÀı,¼´²ÉÓÃ¾²Ì¬³õÊ¼»¯±£Ö¤Ïß³Ì°²È«¡£
+// æ–¹æ¡ˆäº”ï¼šé¥¿æ±‰æ¨¡å¼ï¼Œä¸ç®¡æ˜¯å¦ä¼šç”¨åˆ°ï¼Œç¨‹åºå¼€å§‹å³åˆ›å»ºå®ä¾‹,å³é‡‡ç”¨é™æ€åˆå§‹åŒ–ä¿è¯çº¿ç¨‹å®‰å…¨ã€‚
 class Singleton4
 {
 public:
@@ -779,7 +779,7 @@ public:
 	void display() 
 	{ cout << "Singleton4 has been called " << __count << " times.\n"; }
 
-	~Singleton4() {}
+	//~Singleton4() {}
 
 private:
 	static int __count;
@@ -800,18 +800,19 @@ private:
 
 private:
 	Singleton4() {}
+	~Singleton4(){} //ç¦æ­¢å®ä¾‹è‡ªå·±ä¸»åŠ¨è°ƒç”¨ææ„å‡½æ•°ã€‚
 	Singleton4(const Singleton4&) {}
 	Singleton4& operator = (const Singleton4&) {};
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int Singleton::__count = 0;
 //Singleton* Singleton::__pInstance = nullptr;
 //
 //int Singleton2::__count = 0;
-//auto_ptr<Singleton2> Singleton2::__pInstance; // ÖÇÄÜÖ¸Õë²»ĞèÒªnullptr³õÊ¼»¯¡£
-//Singleton2::Clear Singleton2::__clear;   // ¾²Ì¬ÄÚÇ¶Àà¶ÔÏó³õÊ¼»¯(×Ü»áÓĞÒ»¸ö¶ÔÏó)¡£
+//auto_ptr<Singleton2> Singleton2::__pInstance; // æ™ºèƒ½æŒ‡é’ˆä¸éœ€è¦nullptråˆå§‹åŒ–ã€‚
+//Singleton2::Clear Singleton2::__clear;   // é™æ€å†…åµŒç±»å¯¹è±¡åˆå§‹åŒ–(æ€»ä¼šæœ‰ä¸€ä¸ªå¯¹è±¡)ã€‚
 //
 //int Singleton3::__count = 0;
 //LockGuard Singleton3::__lg;
@@ -819,12 +820,12 @@ private:
 //Singleton3::Clear Singleton3::__cl;
 //
 //int Singleton4::__count = 0;
-//Singleton4* Singleton4::__pInstance = new Singleton4(); // ³ÌĞò¿ªÊ¼¼´²úÉúÒ»¸öÊµÀı¡£
+//Singleton4* Singleton4::__pInstance = new Singleton4(); // ç¨‹åºå¼€å§‹å³äº§ç”Ÿä¸€ä¸ªå®ä¾‹ã€‚
 //Singleton4::Clear Singleton4::__clear;
 //
 //int main(int argc, char* argv[])
 //{
-//	atexit(RealesSingleton);         // ·½°¸Ò»£¬×¢²áÍË³öÊ±Ö´ĞĞº¯Êı¡£
+//	atexit(RealesSingleton);         // æ–¹æ¡ˆä¸€ï¼Œæ³¨å†Œé€€å‡ºæ—¶æ‰§è¡Œå‡½æ•°ã€‚
 //	Singleton* p = nullptr;
 //	p = Singleton::GetInstance();
 //	p->display();
@@ -833,15 +834,15 @@ private:
 //	p->display();
 //
 //
-//	Singleton2* p2 = nullptr;         // ·½°¸Èı£¬Ê¹ÓÃÄÚÇ¶ÀàºÍÆä¾²Ì¬³ÉÔ±¡£
-//	p2 = Singleton2::GetInstance();   // ·½°¸¶ş£¬Ê¹ÓÃÖÇÄÜÖ¸Õë¡£
+//	Singleton2* p2 = nullptr;         // æ–¹æ¡ˆä¸‰ï¼Œä½¿ç”¨å†…åµŒç±»å’Œå…¶é™æ€æˆå‘˜ã€‚
+//	p2 = Singleton2::GetInstance();   // æ–¹æ¡ˆäºŒï¼Œä½¿ç”¨æ™ºèƒ½æŒ‡é’ˆã€‚
 //	p2->display();
 //	p2 = Singleton2::GetInstance();
 //	p2 = Singleton2::GetInstance();
 //	p2->display();
 //
 //
-//	Singleton3* p3 = nullptr;         // ·½°¸ËÄ£¬Ê¹ÓÃË«¼à²âËø»úÖÆ¡£
+//	Singleton3* p3 = nullptr;         // æ–¹æ¡ˆå››ï¼Œä½¿ç”¨åŒç›‘æµ‹é”æœºåˆ¶ã€‚
 //	p3 = Singleton3::GetInstance();
 //	p3->display();
 //	p3 = Singleton3::GetInstance();
@@ -849,28 +850,28 @@ private:
 //	p3->display();
 //
 //
-//	Singleton4* p4 = nullptr;         // ·½°¸Îå£¬Ê¹ÓÃ¶öººÄ£Ê½¡£
+//	Singleton4* p4 = nullptr;         // æ–¹æ¡ˆäº”ï¼Œä½¿ç”¨é¥¿æ±‰æ¨¡å¼ã€‚
 //	p4 = Singleton4::GetInstance();
 //	p4->display();
 //	p4 = Singleton4::GetInstance();
 //	p4 = Singleton4::GetInstance();
 //	p4->display();
 //
-//  ÕâÀïµÄÎö¹¹Ë³ĞòÊÇsingleton1£¬4£¬3£¬2¡£
+//  è¿™é‡Œçš„ææ„é¡ºåºæ˜¯singleton1ï¼Œ4ï¼Œ3ï¼Œ2ã€‚
 //	//system("pause");  
 //	return 0;
 //}
 
 
 
-// ¼òµ¥¹¤³ÌÄ£Ê½£¨simple factory model£©
-class IceCream // ³éÏó³öÒ»¸ö¹«¹²½Ó¿Ú£¬×÷Îª´¿Ğéº¯Êı¡£
+// ç®€å•å·¥ç¨‹æ¨¡å¼ï¼ˆsimple factory modelï¼‰
+class IceCream // æŠ½è±¡å‡ºä¸€ä¸ªå…¬å…±æ¥å£ï¼Œä½œä¸ºçº¯è™šå‡½æ•°ã€‚
 {
 public:
 	virtual void taste() { cout << "can't find your teste icecream.\n"; }
 };
 
-class AppleIceCream :public IceCream // ³éÏóÀàÊµÀı»¯£¬Ò»¸öÀà¸ºÔğÒ»¸öµ¥Ò»¹¦ÄÜ¡£
+class AppleIceCream :public IceCream // æŠ½è±¡ç±»å®ä¾‹åŒ–ï¼Œä¸€ä¸ªç±»è´Ÿè´£ä¸€ä¸ªå•ä¸€åŠŸèƒ½ã€‚
 {
 public:
 	void taste() { cout << "this is apple taste icecream.\n"; }
@@ -888,16 +889,16 @@ public:
 	void taste() { cout << "this is orange taste icecream.\n"; }
 };
 
-enum TASTE { Apple, Banana, Orange, Peach };  // ¸÷ÖÖ¿ÚÎ¶¡£
+enum TASTE { Apple, Banana, Orange, Peach };  // å„ç§å£å‘³ã€‚
 
-class IceCreamFactory // ¹¤³§Àà,ÓÉ¹¤³§Éú²ú²úÆ·£¬²úÆ·ÖÖÀàµÄ±ä»¯»áµ¼ÖÂ¹¤³§µÄ±ä»¯¡£
+class IceCreamFactory // å·¥å‚ç±»,ç”±å·¥å‚ç”Ÿäº§äº§å“ï¼Œäº§å“ç§ç±»çš„å˜åŒ–ä¼šå¯¼è‡´å·¥å‚çš„å˜åŒ–ã€‚
 {
 public:
 	IceCream * create_ice_cream(TASTE taste)
 	{
 		IceCream* _iceCream = nullptr;
 
-		switch (taste)  // ¿ÚÎ¶£¨ÊµÏÖ£©µÄ¸Ä±ä£¬¹¤³§ÀàÒ²Òª¸Ä±ä¡£
+		switch (taste)  // å£å‘³ï¼ˆå®ç°ï¼‰çš„æ”¹å˜ï¼Œå·¥å‚ç±»ä¹Ÿè¦æ”¹å˜ã€‚
 		{
 		case Apple:_iceCream = new AppleIceCream(); break;
 		case Banana:_iceCream = new BananaIceCream(); break;
@@ -910,7 +911,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	TASTE taste;
@@ -933,10 +934,10 @@ public:
 
 
 
-// ¹¤³§Ä£Ê½£¨factory model£©
-namespace fm    // Éè¶¨ÃüÃû¿Õ¼ä£¬±ÜÃâº¯Êı¡¢±äÁ¿ÀàĞÍµÄÖØÃû³åÍ»¡£
+// å·¥å‚æ¨¡å¼ï¼ˆfactory modelï¼‰
+namespace fm    // è®¾å®šå‘½åç©ºé—´ï¼Œé¿å…å‡½æ•°ã€å˜é‡ç±»å‹çš„é‡åå†²çªã€‚
 {
-	class IceCream  // ³éÏó²úÆ·Àà¡£
+	class IceCream  // æŠ½è±¡äº§å“ç±»ã€‚
 	{
 	public:
 		virtual void taste() { cout << "can't find your taste.\n"; }
@@ -960,16 +961,16 @@ namespace fm    // Éè¶¨ÃüÃû¿Õ¼ä£¬±ÜÃâº¯Êı¡¢±äÁ¿ÀàĞÍµÄÖØÃû³åÍ»¡£
 		void taste() { cout << "orange taste.\n"; }
 	};	
 
-	class IceCreamFactory    // ³éÏó¹¤³§Àà£¬Ñ¡Ôñ¾ßÌå²úÆ·µÄÉú²ú¹¤³§¡£
+	class IceCreamFactory    // æŠ½è±¡å·¥å‚ç±»ï¼Œé€‰æ‹©å…·ä½“äº§å“çš„ç”Ÿäº§å·¥å‚ã€‚
 	{
 	public:
 		virtual IceCream * createIceCream() = 0;  
 	};
 
-	class AppleIceCreamFactory :public IceCreamFactory  // ¾ßÌå¹¤³§Àà£¬Éú²úÒ»Àà²úÆ·¡£
+	class AppleIceCreamFactory :public IceCreamFactory  // å…·ä½“å·¥å‚ç±»ï¼Œç”Ÿäº§ä¸€ç±»äº§å“ã€‚
 	{
 	public:
-		IceCream * createIceCream() { return new AppleIceCream(); } // Éú³É¾ßÌå²úÆ·£¬·µ»Ø³éÏó²úÆ·ÀàĞÍ¡£
+		IceCream * createIceCream() { return new AppleIceCream(); } // ç”Ÿæˆå…·ä½“äº§å“ï¼Œè¿”å›æŠ½è±¡äº§å“ç±»å‹ã€‚
 	};
 
 	class OrangeIceCreamFactory :public IceCreamFactory
@@ -986,7 +987,7 @@ namespace fm    // Éè¶¨ÃüÃû¿Õ¼ä£¬±ÜÃâº¯Êı¡¢±äÁ¿ÀàĞÍµÄÖØÃû³åÍ»¡£
 }
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	fm::IceCream* ice;
@@ -996,7 +997,7 @@ namespace fm    // Éè¶¨ÃüÃû¿Õ¼ä£¬±ÜÃâº¯Êı¡¢±äÁ¿ÀàĞÍµÄÖØÃû³åÍ»¡£
 //	ice = iceFac->createIceCream();
 //	ice->taste();
 //
-//	delete iceFac;  // É¾³ıÖ¸ÕëËùÖ¸¶ÔÏó¡£
+//	delete iceFac;  // åˆ é™¤æŒ‡é’ˆæ‰€æŒ‡å¯¹è±¡ã€‚
 //	iceFac = new fm::BananaIceCreamFactory();
 //	ice = iceFac->createIceCream();
 //	ice->taste();
@@ -1006,15 +1007,15 @@ namespace fm    // Éè¶¨ÃüÃû¿Õ¼ä£¬±ÜÃâº¯Êı¡¢±äÁ¿ÀàĞÍµÄÖØÃû³åÍ»¡£
 
 
 
-// ³éÏó¹¤³§Ä£Ê½£¨abstract factory model£©
-class phone  // ²úÆ·³éÏóÀà¡£
+// æŠ½è±¡å·¥å‚æ¨¡å¼ï¼ˆabstract factory modelï¼‰
+class phone  // äº§å“æŠ½è±¡ç±»ã€‚
 {
 public:
 	virtual ~phone() {};
 	virtual void call(string num) = 0;
 };
 
-class androidPhone : public phone  // ²úÆ·Àà¡£
+class androidPhone : public phone  // äº§å“ç±»ã€‚
 {
 public:
 	void call(string num) { cout << "android phone is calling "<<num<<endl; }
@@ -1045,15 +1046,15 @@ public:
 	void play() { cout << "ios pad is playing.\n"; }
 };
 
-class mobileFactory  // ³éÏó¹¤³§Àà£¬³éÏó¹¤³§Éú²úÒ»¸ö²úÆ·×å£¨¶àÀà²úÆ·£©£¬Éú²úÃ»ÓĞË³ĞòÒªÇó¡£
+class mobileFactory  // æŠ½è±¡å·¥å‚ç±»ï¼ŒæŠ½è±¡å·¥å‚ç”Ÿäº§ä¸€ä¸ªäº§å“æ—ï¼ˆå¤šç±»äº§å“ï¼‰ï¼Œç”Ÿäº§æ²¡æœ‰é¡ºåºè¦æ±‚ã€‚
 {
 public:
 	virtual ~mobileFactory(){}
-	virtual phone* createPhone() = 0;  // Éú²úÊÖ»ú²úÆ·(²úÆ·×å)
-	virtual pad* createPad() = 0;      // Éú²úÆ½°å²úÆ·(²úÆ·×å)
+	virtual phone* createPhone() = 0;  // ç”Ÿäº§æ‰‹æœºäº§å“(äº§å“æ—)
+	virtual pad* createPad() = 0;      // ç”Ÿäº§å¹³æ¿äº§å“(äº§å“æ—)
 };
 
-class androidFactory : public mobileFactory  // ¾ßÌå¹¤³§¡£
+class androidFactory : public mobileFactory  // å…·ä½“å·¥å‚ã€‚
 {
 public:
 	phone * createPhone() { return new androidPhone(); }
@@ -1068,7 +1069,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	phone* ph;
@@ -1099,8 +1100,8 @@ public:
 
 
 
-// ½¨ÔìÕßÄ£Ê½£¨builder model£©
-class Builder  // ³éÏó½¨ÔìÕßÀà£¬¸ø³ö²úÆ·¸÷×é·Ö½¨Ôì²½ÖèµÄ½Ó¿Ú¡£
+// å»ºé€ è€…æ¨¡å¼ï¼ˆbuilder modelï¼‰
+class Builder  // æŠ½è±¡å»ºé€ è€…ç±»ï¼Œç»™å‡ºäº§å“å„ç»„åˆ†å»ºé€ æ­¥éª¤çš„æ¥å£ã€‚
 {
 public:
 	virtual ~Builder() {}
@@ -1108,7 +1109,7 @@ public:
 	virtual void BuildPartB() = 0;
 };
 
-class ConcreteBuilder1 :public Builder  // ¾ßÌå½¨ÔìÕß¡£
+class ConcreteBuilder1 :public Builder  // å…·ä½“å»ºé€ è€…ã€‚
 {
 public:
 	virtual ~ConcreteBuilder1() {}
@@ -1126,19 +1127,19 @@ public:
 private:
 };
 
-class Director  // Ö¸»ÓÕß£¬µ÷ÓÃ½¨ÔìÕß½Ó¿Ú×é×°²úÆ·¡£
+class Director  // æŒ‡æŒ¥è€…ï¼Œè°ƒç”¨å»ºé€ è€…æ¥å£ç»„è£…äº§å“ã€‚
 {
 public:
 	Director(Builder* pBuilder):__pBuilder(pBuilder){}
 	~Director() { delete __pBuilder; __pBuilder = nullptr; }
-	void construct() { __pBuilder->BuildPartA(); __pBuilder->BuildPartB(); } // °´Ë³Ğò×é×°²úÆ·¡£
+	void construct() { __pBuilder->BuildPartA(); __pBuilder->BuildPartB(); } // æŒ‰é¡ºåºç»„è£…äº§å“ã€‚
 
 private:
-	Builder * __pBuilder;  // Î¬»¤Ò»¸ö½¨ÔìÕß¶ÔÏóÖ¸Õë¡£
+	Builder * __pBuilder;  // ç»´æŠ¤ä¸€ä¸ªå»ºé€ è€…å¯¹è±¡æŒ‡é’ˆã€‚
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	Builder* b;
@@ -1148,7 +1149,7 @@ private:
 //	d = new Director(b);
 //	d->construct();
 //
-//	delete b;  // ÕâÀï²»ĞèÒªdelete d£»ÒòÎªdÖ¸ÏòµÄDirector¶ÔÏóÎö¹¹»áÏú»ÙÖ¸Õë¡£
+//	delete b;  // è¿™é‡Œä¸éœ€è¦delete dï¼›å› ä¸ºdæŒ‡å‘çš„Directorå¯¹è±¡ææ„ä¼šé”€æ¯æŒ‡é’ˆã€‚
 //	b = new ConcreteBuilder2();
 //	d = new Director(b);
 //	d->construct();
@@ -1160,8 +1161,8 @@ private:
 
 
 
-// Ô­ĞÍÄ£Ê½£¨prototype model£©
-class Prototype  // ³éÏóÔ­ĞÍÀà¡£
+// åŸå‹æ¨¡å¼ï¼ˆprototype modelï¼‰
+class Prototype  // æŠ½è±¡åŸå‹ç±»ã€‚
 {
 public:
 	virtual ~Prototype(){}
@@ -1171,7 +1172,7 @@ protected:
 	Prototype(){}
 };
 
-class ConcretePrototype : public Prototype  // ¾ßÌåÔ­ĞÍ¡£
+class ConcretePrototype : public Prototype  // å…·ä½“åŸå‹ã€‚
 {
 public:
 	ConcretePrototype() { cout << "prototype is created.\n"; }
@@ -1179,11 +1180,11 @@ public:
 	~ConcretePrototype() { cout << "prototype is deleted.\n"; }
 
 	Prototype* Clone() const override
-	{ cout << "prototype is cloned.\n"; return new ConcretePrototype(*this); } // ¸´ÖÆ×Ô¼º¡£
+	{ cout << "prototype is cloned.\n"; return new ConcretePrototype(*this); } // å¤åˆ¶è‡ªå·±ã€‚
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	Prototype* p = new ConcretePrototype();
@@ -1193,13 +1194,13 @@ public:
 //	delete p;
 //	p = nullptr;
 //
-//	if (p2)  // É¾³ıp2Ö¸ÏòµÄ¶ÔÏó¡£
+//	if (p2)  // åˆ é™¤p2æŒ‡å‘çš„å¯¹è±¡ã€‚
 //	{
 //		delete p2;
 //		p2 = nullptr;
 //	}
 //
-//	if (p3)  // É¾³ıp3Ö¸ÏòµÄ¶ÔÏó¡£
+//	if (p3)  // åˆ é™¤p3æŒ‡å‘çš„å¯¹è±¡ã€‚
 //	{
 //		delete p3;
 //		p3 = nullptr;
@@ -1210,15 +1211,15 @@ public:
 
 
 
-// Ä£°æ·½·¨Ä£Ê½£¨template method£©
-class testPaper  // Ëã·¨Ä£°æ³éÏóÀà£¬¶¨ÒåÁËËã·¨µÄÕûÌå¿ò¼ÜºÍÁ÷³Ì¡£
+// æ¨¡ç‰ˆæ–¹æ³•æ¨¡å¼ï¼ˆtemplate methodï¼‰
+class testPaper  // ç®—æ³•æ¨¡ç‰ˆæŠ½è±¡ç±»ï¼Œå®šä¹‰äº†ç®—æ³•çš„æ•´ä½“æ¡†æ¶å’Œæµç¨‹ã€‚
 {
 public:
-	void doTest() { name(); oneAsk(); twoAsk(); }  // ÕûÌåËã·¨¿ò¼ÜºÍÁ÷³Ì¡£
-	void oneAsk() { cout << "question one£º  "; answerOne(); }  // Ö÷ÌåËã·¨²½Öè¡£
+	void doTest() { name(); oneAsk(); twoAsk(); }  // æ•´ä½“ç®—æ³•æ¡†æ¶å’Œæµç¨‹ã€‚
+	void oneAsk() { cout << "question oneï¼š  "; answerOne(); }  // ä¸»ä½“ç®—æ³•æ­¥éª¤ã€‚
 	void twoAsk() { cout << "question two:   "; answerTwo(); }
 
-	virtual void answerOne() = 0;  // ²¿·ÖËã·¨ÊµÏÖ, Áô´ı×ÓÀàÊµÏÖ¡£
+	virtual void answerOne() = 0;  // éƒ¨åˆ†ç®—æ³•å®ç°, ç•™å¾…å­ç±»å®ç°ã€‚
 	virtual void answerTwo() = 0;
 	virtual void name() = 0;
 };
@@ -1240,7 +1241,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	testPaper* p;
@@ -1263,87 +1264,87 @@ public:
 
 
 
-// ÖĞ½éÕßÄ£Ê½£¨mediator model£©
+// ä¸­ä»‹è€…æ¨¡å¼ï¼ˆmediator modelï¼‰
 extern class colleague;
 
-class mediator   // ³éÏóÖĞ½éÕß¡£
+class mediator   // æŠ½è±¡ä¸­ä»‹è€…ã€‚
 {
 public:
-	virtual void registerColleague(colleague* coll)   // ½«²ÎÓëÕß×¢²áµ½ÖĞ½éÕß¡£
-	{ __colleagues.emplace_back(coll); }  // emplace_back Ìæ´úpush_back, ²åÈëÊ±ÎŞÁÙÊ±±äÁ¿£¬Ğ§ÂÊ¸ü¸ß¡£
+	virtual void registerColleague(colleague* coll)   // å°†å‚ä¸è€…æ³¨å†Œåˆ°ä¸­ä»‹è€…ã€‚
+	{ __colleagues.emplace_back(coll); }  // emplace_back æ›¿ä»£push_back, æ’å…¥æ—¶æ— ä¸´æ—¶å˜é‡ï¼Œæ•ˆç‡æ›´é«˜ã€‚
 	
 	const list<colleague*>& getColleagues() const     
-	{ return __colleagues; }  // ³£º¯Êı²»ĞŞ¸Ä³ÉÔ±±äÁ¿£¬·µ»Ø²ÎÓëÕßÖ¸Õë³£ÁĞ±íµÄÒıÓÃ£¨²»ÔÊĞíĞŞ¸Ä£©¡£
+	{ return __colleagues; }  // å¸¸å‡½æ•°ä¸ä¿®æ”¹æˆå‘˜å˜é‡ï¼Œè¿”å›å‚ä¸è€…æŒ‡é’ˆå¸¸åˆ—è¡¨çš„å¼•ç”¨ï¼ˆä¸å…è®¸ä¿®æ”¹ï¼‰ã€‚
 
-	virtual void sendMessage(const colleague* sender, const string& msg) const = 0; // ÖĞ½éÕß³éÏó½Ó¿Ú£¬½«·¢ËÍÕßÏûÏ¢·¢ËÍ¸øËùÓĞ²ÎÓëÕß¡£
+	virtual void sendMessage(const colleague* sender, const string& msg) const = 0; // ä¸­ä»‹è€…æŠ½è±¡æ¥å£ï¼Œå°†å‘é€è€…æ¶ˆæ¯å‘é€ç»™æ‰€æœ‰å‚ä¸è€…ã€‚
 
 private:
-	list<colleague*>  __colleagues;  // Î¬³ÖÒ»¸ö²ÎÓëÕßµÄÖ¸ÕëÁĞ±í¡£
+	list<colleague*>  __colleagues;  // ç»´æŒä¸€ä¸ªå‚ä¸è€…çš„æŒ‡é’ˆåˆ—è¡¨ã€‚
 };
 
-class colleague  // ³éÏó²ÎÓëÕß¡£
+class colleague  // æŠ½è±¡å‚ä¸è€…ã€‚
 {
 public:
 	colleague(const string& name):__name(name){}
 
 	string getName() const { return __name; }
 
-	virtual void sendMessage(const mediator& md, const string& msg) const = 0; // Í¨¹ıÖĞ½éÕß·¢ËÍĞÅÏ¢¡£
+	virtual void sendMessage(const mediator& md, const string& msg) const = 0; // é€šè¿‡ä¸­ä»‹è€…å‘é€ä¿¡æ¯ã€‚
 
-	virtual void getMessage(const colleague* co, const string& msg) const = 0;  // ½ÓÊÕ·¢ËÍÕßµÄĞÅÏ¢¡£
+	virtual void getMessage(const colleague* co, const string& msg) const = 0;  // æ¥æ”¶å‘é€è€…çš„ä¿¡æ¯ã€‚
 
 protected: 
 	string __name;
 };
 
-class concreteMediator : public mediator     // ¾ßÌåÖĞ½éÕß¡£
+class concreteMediator : public mediator     // å…·ä½“ä¸­ä»‹è€…ã€‚
 {
 public:
-	void sendMessage(const colleague* sender, const string& msg) const override  // Í¨ĞÅ·½Ê½¡£
+	void sendMessage(const colleague* sender, const string& msg) const override  // é€šä¿¡æ–¹å¼ã€‚
 	{
-		for (const colleague* c : getColleagues())  // ĞÂÑ­»··½Ê½¡£
+		for (const colleague* c : getColleagues())  // æ–°å¾ªç¯æ–¹å¼ã€‚
 		{
-			if (c != sender)  // colleague¿ÉÒÔÌáÇ°ÉùÃ÷£¬µ«ÊÇµ±µ÷ÓÃ³ÉÔ±Ê±Æä±ØĞëÒÑ¶¨Òå¡£
-				c->getMessage(sender, msg); // ¸¸Àà¹«¹²¡¢×ÓÀàË½ÓĞ£¬¸¸ÀàÖ¸ÕëÖ¸Ïò×ÓÀàÊµÀı£¬½á¹ûµ÷ÓÃ×ÓÀàË½ÓĞ³ÉÔ±¡£
+			if (c != sender)  // colleagueå¯ä»¥æå‰å£°æ˜ï¼Œä½†æ˜¯å½“è°ƒç”¨æˆå‘˜æ—¶å…¶å¿…é¡»å·²å®šä¹‰ã€‚
+				c->getMessage(sender, msg); // çˆ¶ç±»å…¬å…±ã€å­ç±»ç§æœ‰ï¼Œçˆ¶ç±»æŒ‡é’ˆæŒ‡å‘å­ç±»å®ä¾‹ï¼Œç»“æœè°ƒç”¨å­ç±»ç§æœ‰æˆå‘˜ã€‚
 		}
 	}
 };
 
-class concreteColleague : public colleague   // ¾ßÌå²ÎÓëÕß¡£
+class concreteColleague : public colleague   // å…·ä½“å‚ä¸è€…ã€‚
 {
 public:
 	concreteColleague(const string& name):colleague(name) {}
 
 	void sendMessage(const mediator& md, const string& msg) const override
 	{
-		md.sendMessage(this, msg);  // this, µ±Ç°ÀàµÄ×ÔÖ¸Ö¸Õë¡£
+		md.sendMessage(this, msg);  // this, å½“å‰ç±»çš„è‡ªæŒ‡æŒ‡é’ˆã€‚
 	}
 
 private:
-	void getMessage(const colleague* sender, const string& msg) const override   // Í¨¹ı¸¸ÀàÖ¸Õë¶àÌ¬µ÷ÓÃ¡£
+	void getMessage(const colleague* sender, const string& msg) const override   // é€šè¿‡çˆ¶ç±»æŒ‡é’ˆå¤šæ€è°ƒç”¨ã€‚
 	{
 		cout << __name << " get the message from " << sender->getName() << ": " << msg << endl;
 	}
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
-//	colleague *landlord = new concreteColleague("Tom");	// ·¿¶«
+//	colleague *landlord = new concreteColleague("Tom");	// æˆ¿ä¸œ
 //
-//	colleague *jerry = new concreteColleague("Jerry");	// ×â¿Í
+//	colleague *jerry = new concreteColleague("Jerry");	// ç§Ÿå®¢
 //	colleague *tuffy = new concreteColleague("Tuffy");
 //
-//	concreteMediator mediator; // ÖĞ½éÕß - Ìí¼Ó×â¿Í
+//	concreteMediator mediator; // ä¸­ä»‹è€… - æ·»åŠ ç§Ÿå®¢
 //	mediator.registerColleague(jerry);
 //	mediator.registerColleague(tuffy);
 //	mediator.registerColleague(landlord);
 //
-//	// Í¨¹ıÖĞ½é½«ÏûÏ¢·¢ËÍ³öÈ¥
+//	// é€šè¿‡ä¸­ä»‹å°†æ¶ˆæ¯å‘é€å‡ºå»
 //	landlord->sendMessage(mediator, "Xi'erqi, two bedroom house, 6000/month.");
 //	jerry->sendMessage(mediator, "want one bedroom house.");
-//	tuffy->getMessage(jerry, "want to rent house with you.");  // ±äÌ¬c++¡£
+//	tuffy->getMessage(jerry, "want to rent house with you.");  // å˜æ€c++ã€‚
 //
 //	return 0;
 //}
@@ -1351,17 +1352,17 @@ private:
 
 
 
-// ²ßÂÔÄ£Ê½£¨strategy model£©
+// ç­–ç•¥æ¨¡å¼ï¼ˆstrategy modelï¼‰
 #define free_ptr(p) if(p) delete p; p = nullptr  
 
-class wind  // ³éÏó²ßÂÔÀà¡£
+class wind  // æŠ½è±¡ç­–ç•¥ç±»ã€‚
 {
 public:
 	virtual ~wind() {}
-	virtual void blow() = 0;  // Í³Ò»½Ó¿Ú¡£
+	virtual void blow() = 0;  // ç»Ÿä¸€æ¥å£ã€‚
 };
 
-class coldWind : public wind  // ¾ßÌåËã·¨Àà¡£
+class coldWind : public wind  // å…·ä½“ç®—æ³•ç±»ã€‚
 {
 public:
 	void blow() override { cout << "blow cold wind.\n"; }
@@ -1379,19 +1380,19 @@ public:
 	void blow() override { cout << "blow no wind.\n"; }
 };
 
-class windMode  // ¿Í»§¶Ë½Ó¿ÚÀà¡£
+class windMode  // å®¢æˆ·ç«¯æ¥å£ç±»ã€‚
 {
 public:
 	windMode(wind* wind):__wind(wind){}
 	~windMode() { free_ptr(__wind); }
-	void blowWind() { __wind->blow(); }  // ¿Í»§¶Ë½Ó¿Ú£¬·ÃÎÊ²ßÂÔ¡£
+	void blowWind() { __wind->blow(); }  // å®¢æˆ·ç«¯æ¥å£ï¼Œè®¿é—®ç­–ç•¥ã€‚
 
 private:
-	wind * __wind;  // Î¬»¤Ò»¸ö³éÏó²ßÂÔÀàµÄÖ¸Õë¡£
+	wind * __wind;  // ç»´æŠ¤ä¸€ä¸ªæŠ½è±¡ç­–ç•¥ç±»çš„æŒ‡é’ˆã€‚
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	wind* w;
@@ -1419,22 +1420,22 @@ private:
 
 
 
-// ·ÃÎÊÕßÄ£Ê½£¨visitor model£©
+// è®¿é—®è€…æ¨¡å¼ï¼ˆvisitor modelï¼‰
 extern class parkA;
 extern class parkB;
 
-class visitor  // ³éÏó·ÃÎÊÕß¡£
+class visitor  // æŠ½è±¡è®¿é—®è€…ã€‚
 {
 public:
 	virtual ~visitor(){}
-	virtual void visit(parkA*) = 0;  // ·ÃÎÊ¶ÔÏó½Ó¿Ú¡£
+	virtual void visit(parkA*) = 0;  // è®¿é—®å¯¹è±¡æ¥å£ã€‚
 	virtual void visit(parkB*) = 0;
 };
 
-class tourist : public visitor  // ¾ßÌåµÄ·ÃÎÊÕß£¬·ÃÎÊ¶ÔÏó²»±ä£¬¾ßÓĞÌØ¶¨µÄ·ÃÎÊ²Ù×÷¡£
+class tourist : public visitor  // å…·ä½“çš„è®¿é—®è€…ï¼Œè®¿é—®å¯¹è±¡ä¸å˜ï¼Œå…·æœ‰ç‰¹å®šçš„è®¿é—®æ“ä½œã€‚
 {
 public:
-	void visit(parkA*) override { cout << "tourist visit parkA.\n"; }  // ·ÃÎÊ²Ù×÷¡£
+	void visit(parkA*) override { cout << "tourist visit parkA.\n"; }  // è®¿é—®æ“ä½œã€‚
 	void visit(parkB*) override { cout << "tourist visit parkB.\n"; }
 };
 
@@ -1445,18 +1446,18 @@ public:
 	void visit(parkB*) override { cout << "cleaner clean parkB.\n"; }
 };
 
-class place  // ³éÏóÔªËØÀà£¬ÎªÔªËØÍ³Ò»·ÃÎÊÕß½Ó¿Ú¡£
+class place  // æŠ½è±¡å…ƒç´ ç±»ï¼Œä¸ºå…ƒç´ ç»Ÿä¸€è®¿é—®è€…æ¥å£ã€‚
 {
 public:
 	virtual ~place(){}
-	virtual void accept(visitor*) = 0;  // ÔªËØ½ÓÊÜÄÄĞ©·ÃÎÊÕß¡£
+	virtual void accept(visitor*) = 0;  // å…ƒç´ æ¥å—å“ªäº›è®¿é—®è€…ã€‚
 };
 
 class parkA :public place
 {
 public:
 	void accept(visitor* v) override 
-	{ cout << "parkA accept visitor.\n"; v->visit(this); }  // Í¨¹ıÔÚÔªËØÖĞµ÷ÓÃÏàÓ¦·ÃÎÊÕßÊµÏÖ·ÃÎÊ¡£
+	{ cout << "parkA accept visitor.\n"; v->visit(this); }  // é€šè¿‡åœ¨å…ƒç´ ä¸­è°ƒç”¨ç›¸åº”è®¿é—®è€…å®ç°è®¿é—®ã€‚
 };
 
 class parkB : public place
@@ -1466,23 +1467,23 @@ public:
 	{ cout << "parkB accept visitor.\n"; v->visit(this); }
 };
 
-class city  // ¿Í»§¶Ë¡£
+class city  // å®¢æˆ·ç«¯ã€‚
 {
 public:
-	~city() { for (auto* p : __places) { free_ptr(p); } } // ÊÍ·ÅÖ¸ÕëÖ¸ÏòµÄ¿Õ¼ä£¬Ö®ºóÓÉlistÊÍ·ÅÖ¸ÕëÔªËØ¡£
+	~city() { for (auto* p : __places) { free_ptr(p); } } // é‡Šæ”¾æŒ‡é’ˆæŒ‡å‘çš„ç©ºé—´ï¼Œä¹‹åç”±listé‡Šæ”¾æŒ‡é’ˆå…ƒç´ ã€‚
 
-	void login(place* p) { __places.emplace_back(p); }  // ×¢ÈëÔªËØ¡£
+	void login(place* p) { __places.emplace_back(p); }  // æ³¨å…¥å…ƒç´ ã€‚
 
-	void logout(place* p) { __places.remove(p); }       // ÒÆ³ıÔªËØ¡£
+	void logout(place* p) { __places.remove(p); }       // ç§»é™¤å…ƒç´ ã€‚
 
-	void operation(visitor* v) { for (place* p : __places) p->accept(v); }  // ¿Í»§¶Ë·â×°¡£
+	void operation(visitor* v) { for (place* p : __places) p->accept(v); }  // å®¢æˆ·ç«¯å°è£…ã€‚
 
 private:
-	list<place*>  __places;  // Î¬»¤Ò»¸öÔªËØÖ¸ÕëÁĞ±í£¬ºóÆÚĞèÒªÊÍ·ÅÖ¸ÏòµÄÄÚ´æ£¨Ö®Ç°µÄÄ£Ê½Î´´¦Àí£©¡£
+	list<place*>  __places;  // ç»´æŠ¤ä¸€ä¸ªå…ƒç´ æŒ‡é’ˆåˆ—è¡¨ï¼ŒåæœŸéœ€è¦é‡Šæ”¾æŒ‡å‘çš„å†…å­˜ï¼ˆä¹‹å‰çš„æ¨¡å¼æœªå¤„ç†ï¼‰ã€‚
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	place* p;
@@ -1509,25 +1510,25 @@ private:
 
 
 
-// ¹Û²ìÕßÄ£Ê½£¨observer model£©
+// è§‚å¯Ÿè€…æ¨¡å¼ï¼ˆobserver modelï¼‰
 extern class listenner;
 
-class notifier  // ³éÏóÍ¨ÖªÕß£¬Í¨ÖªÕßµÄ±ä»¯»á±»¼àÌıÕß¼àÌıµ½£¨´Ó¶ø´¥·¢ºóÕßµÄ¶¯×÷£©¡£
+class notifier  // æŠ½è±¡é€šçŸ¥è€…ï¼Œé€šçŸ¥è€…çš„å˜åŒ–ä¼šè¢«ç›‘å¬è€…ç›‘å¬åˆ°ï¼ˆä»è€Œè§¦å‘åè€…çš„åŠ¨ä½œï¼‰ã€‚
 {
 public:
-	virtual ~notifier(){}  // ¸¸ÀàĞéÎö¹¹º¯Êı£¬·ÀÖ¹×ÓÀà²»ÄÜÕı³£Îö¹¹£¨¸¸ÀàÖ¸ÕëÖ¸Ïò×ÓÀàÊµÀı£¬ÏÈÎö¹¹×ÓÀàºó¸¸Àà£©¡£
-	virtual void addListenner(listenner* l) = 0;    // ×¢Èë¼àÌıÕß¡£
-	virtual void removeListenner(listenner* l) = 0; // ÒÆ³ı¼àÌıÕß¡£
-	virtual void notify() = 0;                      // Í¨ÖªËùÓĞ¼àÌıÕß¡£
+	virtual ~notifier(){}  // çˆ¶ç±»è™šææ„å‡½æ•°ï¼Œé˜²æ­¢å­ç±»ä¸èƒ½æ­£å¸¸ææ„ï¼ˆçˆ¶ç±»æŒ‡é’ˆæŒ‡å‘å­ç±»å®ä¾‹ï¼Œå…ˆææ„å­ç±»åçˆ¶ç±»ï¼‰ã€‚
+	virtual void addListenner(listenner* l) = 0;    // æ³¨å…¥ç›‘å¬è€…ã€‚
+	virtual void removeListenner(listenner* l) = 0; // ç§»é™¤ç›‘å¬è€…ã€‚
+	virtual void notify() = 0;                      // é€šçŸ¥æ‰€æœ‰ç›‘å¬è€…ã€‚
 };
 
-class listenner  // ³éÏó¼àÌıÕß£¬¼àÌıÍ¨ÖªÕßµÄÏûÏ¢´¥·¢Ïà¹Ø¶¯×÷¡£
+class listenner  // æŠ½è±¡ç›‘å¬è€…ï¼Œç›‘å¬é€šçŸ¥è€…çš„æ¶ˆæ¯è§¦å‘ç›¸å…³åŠ¨ä½œã€‚
 {
 public:
-	virtual void teacherComming() = 0;  // ¼àÌıÕß¶ÔÍ¨ÖªµÄ¶¯×÷¡£
+	virtual void teacherComming() = 0;  // ç›‘å¬è€…å¯¹é€šçŸ¥çš„åŠ¨ä½œã€‚
 };
 
-class techerNotifier :public notifier  // ¾ßÌåÍ¨ÖªÕß¡£
+class techerNotifier :public notifier  // å…·ä½“é€šçŸ¥è€…ã€‚
 {
 public:
 	~techerNotifier() { for (auto* l : __listenners) { free_ptr(l); } }
@@ -1539,10 +1540,10 @@ public:
 	void notify() override { for (auto* l : __listenners) { l->teacherComming(); } }
 
 private:
-	list<listenner*>  __listenners;  // Î¬»¤Ò»¸ö¼àÌıÕßÖ¸ÕëÁĞ±í¡£
+	list<listenner*>  __listenners;  // ç»´æŠ¤ä¸€ä¸ªç›‘å¬è€…æŒ‡é’ˆåˆ—è¡¨ã€‚
 };
 
-class listennerA :public listenner     // ¾ßÌå¼àÌıÕß¡£
+class listennerA :public listenner     // å…·ä½“ç›‘å¬è€…ã€‚
 {
 public:
 	void teacherComming() override { stopCopy(); }
@@ -1557,7 +1558,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	listenner* l;
@@ -1578,36 +1579,36 @@ public:
 
 
 
-// ×´Ì¬Ä£Ê½£¨state model£©
+// çŠ¶æ€æ¨¡å¼ï¼ˆstate modelï¼‰
 enum tlState { Red, Green, Yellow };
 
-class state  // ³éÏó×´Ì¬Àà¡£
+class state  // æŠ½è±¡çŠ¶æ€ç±»ã€‚
 {
 public:
-	virtual void handle() = 0;  // ×´Ì¬µÄ¶¯×÷¡£
+	virtual void handle() = 0;  // çŠ¶æ€çš„åŠ¨ä½œã€‚
 };
 
-class trafficLight  // ÉÏÏÂÎÄÀà£¬¸ù¾İ×´Ì¬¾ö¶¨ĞĞÎª¡£
+class trafficLight  // ä¸Šä¸‹æ–‡ç±»ï¼Œæ ¹æ®çŠ¶æ€å†³å®šè¡Œä¸ºã€‚
 {
 public:
-	trafficLight(); // ÀàµÄÑ­»·µ÷ÓÃ£¬ÉùÃ÷Óë¶¨Òå·ÖÀë¡£
+	trafficLight(); // ç±»çš„å¾ªç¯è°ƒç”¨ï¼Œå£°æ˜ä¸å®šä¹‰åˆ†ç¦»ã€‚
 	~trafficLight() { free_ptr(__state); }
 
-	void setState(state* s) { __state = s; }  // ¸ü¸Ä×´Ì¬¡£
-	void operation() { __state->handle(); }   // ÒÀ¾İ×´Ì¬²úÉú²Ù×÷£¬²¢ĞŞ¸Ä×´Ì¬¡£
+	void setState(state* s) { __state = s; }  // æ›´æ”¹çŠ¶æ€ã€‚
+	void operation() { __state->handle(); }   // ä¾æ®çŠ¶æ€äº§ç”Ÿæ“ä½œï¼Œå¹¶ä¿®æ”¹çŠ¶æ€ã€‚
 
 private:
-	state * __state;  // Î¬»¤Ò»¸ö×´Ì¬Ö¸Õë¡£
+	state * __state;  // ç»´æŠ¤ä¸€ä¸ªçŠ¶æ€æŒ‡é’ˆã€‚
 };
 
-class redLight :public state   // ¾ßÌå×´Ì¬Àà¡£
+class redLight :public state   // å…·ä½“çŠ¶æ€ç±»ã€‚
 {
 public:
 	redLight(trafficLight* tl):__traffic(tl){}
-	void handle() override;    // Éæ¼°ÀàµÄÑ­»·µ÷ÓÃ£¬ÎŞ·¨ÔÚÒ»¸öÎÄ¼şÖĞÊµÏÖ¡£
+	void handle() override;    // æ¶‰åŠç±»çš„å¾ªç¯è°ƒç”¨ï¼Œæ— æ³•åœ¨ä¸€ä¸ªæ–‡ä»¶ä¸­å®ç°ã€‚
 
 private:
-	trafficLight * __traffic;  // Î¬»¤Ò»¸öÉÏÏÂÎÄ»·¾³¡£
+	trafficLight * __traffic;  // ç»´æŠ¤ä¸€ä¸ªä¸Šä¸‹æ–‡ç¯å¢ƒã€‚
 };
 
 class greenLight : public state
@@ -1631,17 +1632,17 @@ private:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //trafficLight::trafficLight()
 //{
-//	__state = new redLight(this);  // ³õÊ¼×´Ì¬¡£
+//	__state = new redLight(this);  // åˆå§‹çŠ¶æ€ã€‚
 //}
 //
 //void redLight::handle()
 //{
 //	cout << "red light now.\n";
-//	__traffic->setState(new greenLight(__traffic));  // ×Ô¶¯×´Ì¬Ç¨ÒÆ¡£
-//	delete this; // É¾³ıµ±Ç°×´Ì¬¶ÔÏó¡£
+//	__traffic->setState(new greenLight(__traffic));  // è‡ªåŠ¨çŠ¶æ€è¿ç§»ã€‚
+//	delete this; // åˆ é™¤å½“å‰çŠ¶æ€å¯¹è±¡ã€‚
 //}
 //
 //void greenLight::handle()
@@ -1663,17 +1664,17 @@ private:
 //{
 //	trafficLight tl;
 //
-//	tlState state = Red;  // ³õÊ¼×´Ì¬ÎªºìµÆ
-//	int i = 0;            // ×Ü´ÎÊı
-//	int seconds;          // ÃëÊı
+//	tlState state = Red;  // åˆå§‹çŠ¶æ€ä¸ºçº¢ç¯
+//	int i = 0;            // æ€»æ¬¡æ•°
+//	int seconds;          // ç§’æ•°
 //
 //	while (true && i<10)
 //	{
-//		// ±íÊ¾Ò»¸öÍêÕûµÄ×´Ì¬Á÷£¨ºìµÆ->ÂÌµÆ->»ÆµÆ£©ÒÑ¾­Íê³É
+//		// è¡¨ç¤ºä¸€ä¸ªå®Œæ•´çš„çŠ¶æ€æµï¼ˆçº¢ç¯->ç»¿ç¯->é»„ç¯ï¼‰å·²ç»å®Œæˆ
 //		if (i % 3 == 0)
 //			cout << "*****" << "Session " << ((i + 1) / 3) + 1 << "*****\n";
 //
-//		// ¸ù¾İµ±Ç°×´Ì¬À´ÉèÖÃ³ÖĞøÊ±¼ä£¬ºìµÆ£¨6Ãë£©¡¢ÂÌµÆ£¨4Ãë£©¡¢»ÆµÆ£¨2Ãë£©
+//		// æ ¹æ®å½“å‰çŠ¶æ€æ¥è®¾ç½®æŒç»­æ—¶é—´ï¼Œçº¢ç¯ï¼ˆ6ç§’ï¼‰ã€ç»¿ç¯ï¼ˆ4ç§’ï¼‰ã€é»„ç¯ï¼ˆ2ç§’ï¼‰
 //		if (state == Red)
 //		{
 //			seconds = 6;
@@ -1690,7 +1691,7 @@ private:
 //			state = Red;
 //		}
 //
-//		// ĞİÃß
+//		// ä¼‘çœ 
 //		Sleep(seconds * 1000);
 //
 //		tl.operation();
@@ -1704,8 +1705,8 @@ private:
 
 
 
-// ±¸ÍüÂ¼Ä£Ê½£¨memento model£©
-class memento  // ±¸ÍüÂ¼, Ò»¸ö±¸ÍüÂ¼´æ´¢Ò»¸ö×´Ì¬¡£
+// å¤‡å¿˜å½•æ¨¡å¼ï¼ˆmemento modelï¼‰
+class memento  // å¤‡å¿˜å½•, ä¸€ä¸ªå¤‡å¿˜å½•å­˜å‚¨ä¸€ä¸ªçŠ¶æ€ã€‚
 {
 public:
 	memento(string s):__state(s){}
@@ -1713,42 +1714,42 @@ public:
 	string getState() { return __state; }
 
 private:
-	string __state;  // ×´Ì¬¡£
+	string __state;  // çŠ¶æ€ã€‚
 };
 
-class life   // Ô­·¢Æ÷£¬ ´´½¨±¸ÍüÂ¼²¢²úÉú¼ÇÂ¼¡£
+class life   // åŸå‘å™¨ï¼Œ åˆ›å»ºå¤‡å¿˜å½•å¹¶äº§ç”Ÿè®°å½•ã€‚
 {
 public:
 	void setState(string s) { cout << "set state to " << s << endl; __state = s; }
 	void display() { cout << "current state is " << __state << endl;; }
 
-	memento* createMemento() { return new memento(__state); }  // ´´½¨±¸ÍüÂ¼¡£
-	void getState(memento* m) { __state = m->getState(); }     // »ñÈ¡¼ÇÂ¼¡£
+	memento* createMemento() { return new memento(__state); }  // åˆ›å»ºå¤‡å¿˜å½•ã€‚
+	void getState(memento* m) { __state = m->getState(); }     // è·å–è®°å½•ã€‚
 
 private:
 	string __state;
 };
 
-class pandoraBox  // ¹ÜÀíÕß£¬¸ºÔğ±£´æ±¸ÍüÂ¼ºÍÔ­·¢Æ÷¡£
+class pandoraBox  // ç®¡ç†è€…ï¼Œè´Ÿè´£ä¿å­˜å¤‡å¿˜å½•å’ŒåŸå‘å™¨ã€‚
 {
 public:
 	pandoraBox(life* l):__life(l){}
 	~pandoraBox() 
 	{
 		for (int i = 0; i < __history.size();i++) delete __history.at(i);
-		__history.clear();  // ÈİÆ÷µÄclear()Ö»×öÇ³É¾³ı£¬Ö¸ÕëÖ¸ÏòµÄÄÚ´æĞèÒªÊÖ¶¯ÊÍ·Å¡£
+		__history.clear();  // å®¹å™¨çš„clear()åªåšæµ…åˆ é™¤ï¼ŒæŒ‡é’ˆæŒ‡å‘çš„å†…å­˜éœ€è¦æ‰‹åŠ¨é‡Šæ”¾ã€‚
 	}
 
-	void save() { cout << "save ...\n"; __history.emplace_back(__life->createMemento()); } // ±£´æµ±Ç°×´Ì¬(±¸ÍüÂ¼)¡£
-	void undo() { cout << "undo...\n"; __life->getState(__history.back()); }  // »Ö¸´Ö®Ç°µÄ×´Ì¬£¨±¸ÍüÂ¼£©¡£
+	void save() { cout << "save ...\n"; __history.emplace_back(__life->createMemento()); } // ä¿å­˜å½“å‰çŠ¶æ€(å¤‡å¿˜å½•)ã€‚
+	void undo() { cout << "undo...\n"; __life->getState(__history.back()); }  // æ¢å¤ä¹‹å‰çš„çŠ¶æ€ï¼ˆå¤‡å¿˜å½•ï¼‰ã€‚
 
 private:
-	life * __life;    // Î¬»¤Ò»¸öÔ­·¢Æ÷¶ÔÏó¡£
-	vector<memento*>  __history;  // Î¬»¤Ô­·¢Æ÷µÄ±¸ÍüÂ¼ÁĞ±í¡£
+	life * __life;    // ç»´æŠ¤ä¸€ä¸ªåŸå‘å™¨å¯¹è±¡ã€‚
+	vector<memento*>  __history;  // ç»´æŠ¤åŸå‘å™¨çš„å¤‡å¿˜å½•åˆ—è¡¨ã€‚
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	life l;
@@ -1773,27 +1774,27 @@ private:
 
 
 
-// Ö°ÔğÁ´Ä£Ê½£¨chain of responsibility model£©
-class handler  // ³éÏó´¦ÀíÕß¡£
+// èŒè´£é“¾æ¨¡å¼ï¼ˆchain of responsibility modelï¼‰
+class handler  // æŠ½è±¡å¤„ç†è€…ã€‚
 {
 public:
 	handler() { __nextHandler = nullptr; }
 	virtual ~handler(){}
 
-	void setNextHandler(handler* h) { __nextHandler = h; }  // ÉèÖÃÏÂÒ»¸ö´¦ÀíÕß¡£
-	virtual void handleRequst(int days) = 0;  // ´¦ÀíÇëÇó¡£
+	void setNextHandler(handler* h) { __nextHandler = h; }  // è®¾ç½®ä¸‹ä¸€ä¸ªå¤„ç†è€…ã€‚
+	virtual void handleRequst(int days) = 0;  // å¤„ç†è¯·æ±‚ã€‚
 
 protected:
-	handler * __nextHandler;    // ºó¼ÌÕß£¬ÏÂÒ»¸ö´¦ÀíÕß¡£
+	handler * __nextHandler;    // åç»§è€…ï¼Œä¸‹ä¸€ä¸ªå¤„ç†è€…ã€‚
 };
 
-class director :public handler  // ¾ßÌå´¦ÀíÕß¡£
+class director :public handler  // å…·ä½“å¤„ç†è€…ã€‚
 {
 public:
 	void handleRequst(int days) override 
 	{
 		if(days <= 1) cout << "i'm director, have authority to agree 1 day off.\n";
-		else __nextHandler->handleRequst(days);  // Èç¹ûµ±Ç°´¦ÀíÕß²»ÄÜ´¦Àí£¬Ïòºó´«µİ´¦ÀíÇëÇó¡£
+		else __nextHandler->handleRequst(days);  // å¦‚æœå½“å‰å¤„ç†è€…ä¸èƒ½å¤„ç†ï¼Œå‘åä¼ é€’å¤„ç†è¯·æ±‚ã€‚
 	}
 };
 
@@ -1818,7 +1819,7 @@ public:
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	director d;
@@ -1841,9 +1842,9 @@ public:
 
 
 
-// µü´úÆ÷Ä£Ê½£¨iterator model£©
-template<class Item>   // Ä£°æ,¶¨ÒåÀà¶ÔÏó¡£
-class Iterator         // ³éÏóµü´úÆ÷¡£
+// è¿­ä»£å™¨æ¨¡å¼ï¼ˆiterator modelï¼‰
+template<class Item>   // æ¨¡ç‰ˆ,å®šä¹‰ç±»å¯¹è±¡ã€‚
+class Iterator         // æŠ½è±¡è¿­ä»£å™¨ã€‚
 {
 public:
 	Iterator(){}
@@ -1851,25 +1852,25 @@ public:
 
 	virtual void first() = 0;
 	virtual void next() = 0;
-	virtual Item* curItem() = 0;  // ·µ»Øµ±Ç°ÔªËØ¡£
+	virtual Item* curItem() = 0;  // è¿”å›å½“å‰å…ƒç´ ã€‚
 	virtual bool isDone() = 0;
 };
 
 template<class Item>
-class Aggregate   // ³éÏó¾ÛºÏÀà£¬´æÓĞµü´ú¶ÔÏó¡£
+class Aggregate   // æŠ½è±¡èšåˆç±»ï¼Œå­˜æœ‰è¿­ä»£å¯¹è±¡ã€‚
 {
 public:
 	Aggregate(){}
 	virtual~Aggregate(){}
 
 	virtual void pushData(Item item) = 0;
-	virtual Iterator<Item>* createIterator() = 0;  // ·µ»ØÒ»¸öItemÀàĞÍµÄµü´úÆ÷Ö¸Õë¡£
-	virtual Item& operator[](int index) = 0;  // ÖØÔØ[]²Ù×÷·û£¬·µ»ØÒ»¸ö¾ÛºÏÔªËØ¡£
+	virtual Iterator<Item>* createIterator() = 0;  // è¿”å›ä¸€ä¸ªItemç±»å‹çš„è¿­ä»£å™¨æŒ‡é’ˆã€‚
+	virtual Item& operator[](int index) = 0;  // é‡è½½[]æ“ä½œç¬¦ï¼Œè¿”å›ä¸€ä¸ªèšåˆå…ƒç´ ã€‚
 	virtual int getSize() = 0;
 };
 
 template<class Item>
-class ConcreteIterator :public Iterator<Item>  // ¾ßÌåµü´úÆ÷¡£
+class ConcreteIterator :public Iterator<Item>  // å…·ä½“è¿­ä»£å™¨ã€‚
 {
 public:
 	ConcreteIterator(Aggregate<Item>* a):__aggr(a), __cur(0){}
@@ -1885,29 +1886,29 @@ public:
 	}
 
 private:
-	int  __cur;  // µ±Ç°ÔªËØË÷Òı¡£
-	Aggregate<Item>* __aggr;  // Î¬»¤Ò»¸ö¾ÛºÏÀàÖ¸Õë¡£
+	int  __cur;  // å½“å‰å…ƒç´ ç´¢å¼•ã€‚
+	Aggregate<Item>* __aggr;  // ç»´æŠ¤ä¸€ä¸ªèšåˆç±»æŒ‡é’ˆã€‚
 };
 
 template<class Item>
-class ConcreteAggregate :public Aggregate<Item>  // Ä£°æ¸¸ÀàµÄ¼Ì³Ğ¡£
+class ConcreteAggregate :public Aggregate<Item>  // æ¨¡ç‰ˆçˆ¶ç±»çš„ç»§æ‰¿ã€‚
 {
 public:
 	ConcreteAggregate(){}
 	~ConcreteAggregate(){}
 
 	void pushData(Item i) { __data.emplace_back(i); }
-	Iterator<Item>* createIterator() // Ö¸Ïòµ±Ç°¾ÛºÏµÄµü´úÆ÷¡£
-	{ return new ConcreteIterator<Item>(this); } // ×¢ÒâÄ£°æÀàµÄÊ¹ÓÃ¡£
+	Iterator<Item>* createIterator() // æŒ‡å‘å½“å‰èšåˆçš„è¿­ä»£å™¨ã€‚
+	{ return new ConcreteIterator<Item>(this); } // æ³¨æ„æ¨¡ç‰ˆç±»çš„ä½¿ç”¨ã€‚
 	Item& operator[](int index) { return __data[index]; }  
 	int getSize() { return __data.size(); }
 
 private:
-	vector<Item>  __data;  // ´æÓĞËùÓĞ±»µü´ú¶ÔÏó¡£
+	vector<Item>  __data;  // å­˜æœ‰æ‰€æœ‰è¢«è¿­ä»£å¯¹è±¡ã€‚
 };
 
 
-// Ê¹ÓÃÁ÷³Ì¡£
+// ä½¿ç”¨æµç¨‹ã€‚
 //int main(int argc, char* argv[])
 //{
 //	Aggregate<int> * aggr = new ConcreteAggregate<int>();
