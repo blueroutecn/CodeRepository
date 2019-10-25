@@ -51,6 +51,41 @@ public:
 		return true;
 	}
 
+
+	template<typename T>
+	bool writeTestLog(const T& value)
+	{
+		ofstream file(s_path, ios::app);
+		if (!file.is_open()) return false;
+		file << value << "\n";
+		file.close();	
+		return true;
+	}
+
+	template<typename T, typename... Args>
+	bool writeTestLog(const T& value, const Args&... args)
+	{
+		ofstream file(s_path, ios::app);
+		if (!file.is_open()) return false;
+
+		if (typeid(value).name() == typeid(s_level).name())
+		{
+			if (value < s_level) return false;
+
+			string datetime = getTime();
+			file << "\n\ntest -- " << datetime << "results:\n";
+		}
+		else
+		{
+			file <<value<<"\t";
+		}
+		
+		file.close();
+
+		writeTestLog(args...);
+		return true;
+	}
+
 private:
 	Logger() {}
 	~Logger() {}
@@ -205,7 +240,7 @@ const string Logger::getTime()
 // global vars
 //=============================================================================
 
-Logger* g_log = Logger::getLogger();  // 全局日志指针，用于本文件写日志。
+static Logger* g_log = Logger::getLogger();  // 静态全局日志指针，限制在本文件。
 
 //=============================================================================
 
