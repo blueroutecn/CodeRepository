@@ -8,49 +8,49 @@ int main()
 	int i = 0;
 	double run_time;
 
-	_LARGE_INTEGER time_start;	//¿ªÊ¼Ê±¼ä
-	_LARGE_INTEGER time_over;	//½áÊøÊ±¼ä
-	double dqFreq;		//¼ÆÊ±Æ÷ÆµÂÊ
-	LARGE_INTEGER f;	//¼ÆÊ±Æ÷ÆµÂÊ
+	_LARGE_INTEGER time_start;	//å¼€å§‹æ—¶é—´
+	_LARGE_INTEGER time_over;	//ç»“æŸæ—¶é—´
+	double dqFreq;		//è®¡æ—¶å™¨é¢‘ç‡
+	LARGE_INTEGER f;	//è®¡æ—¶å™¨é¢‘ç‡
 
 	QueryPerformanceFrequency(&f);
 	dqFreq = (double)f.QuadPart;
-	QueryPerformanceCounter(&time_start);	//¼ÆÊ±¿ªÊ¼
+	QueryPerformanceCounter(&time_start);	//è®¡æ—¶å¼€å§‹
 
-	for (i = 1; i <= 10000; i++)a[i] = i;	//Òª¼ÆÊ±µÄ³ÌĞò
+	for (i = 1; i <= 10000; i++)a[i] = i;	//è¦è®¡æ—¶çš„ç¨‹åº
 
-	QueryPerformanceCounter(&time_over);	//¼ÆÊ±½áÊø
+	QueryPerformanceCounter(&time_over);	//è®¡æ—¶ç»“æŸ
 	run_time = 1000000 * (time_over.QuadPart - time_start.QuadPart) / dqFreq;
-	//³ËÒÔ1000000°Ñµ¥Î»ÓÉÃë»¯ÎªÎ¢Ãë£¬¾«¶ÈÎª1000 000/£¨cpuÖ÷Æµ£©Î¢Ãë
+	//ä¹˜ä»¥1000000æŠŠå•ä½ç”±ç§’åŒ–ä¸ºå¾®ç§’ï¼Œç²¾åº¦ä¸º1000 000/ï¼ˆcpuä¸»é¢‘ï¼‰å¾®ç§’
 
-	printf("\nrun_time£º%fus\n", run_time);
+	printf("\nrun_timeï¼š%fus\n", run_time);
 	return 0;
 }
 
 
 
 #include<stdio.h>
-#include <stdlib.h>//ÓÃµ½rand()º¯Êı
-#include<time.h>   //ÓÃµ½clock()º¯Êı
+#include <stdlib.h>//ç”¨åˆ°rand()å‡½æ•°
+#include<time.h>   //ç”¨åˆ°clock()å‡½æ•°
 
 
 int main() 
 {
-	int begintime, endtime;
+	clock_t begintime, endtime;
 	int i = 0;
 	int a[1002];
 
-	begintime = clock();	//¼ÆÊ±¿ªÊ¼
+	begintime = clock();	//è®¡æ—¶å¼€å§‹
 
-	for (i = 1; i <= 1000; i++) //Òª¼ÆÊ±µÄ³ÌĞò
+	for (i = 1; i <= 1000; i++) //è¦è®¡æ—¶çš„ç¨‹åº
 	{
-		a[i] = rand() % 200 - 100;//²úÉú-100µ½+100Ö®¼äµÄËæ»úÊı
+		a[i] = rand() % 200 - 100;//äº§ç”Ÿ-100åˆ°+100ä¹‹é—´çš„éšæœºæ•°
 		printf("  %d", a[i]);
 	}
 
-	endtime = clock();	  //¼ÆÊ±½áÊø
+	endtime = clock();	  //è®¡æ—¶ç»“æŸ
 
-	printf("\n\nRunning Time£º%dms\n", endtime - begintime);
+	printf("\n\nRunning Timeï¼š%dms\n", (endtime - begintime)/CLOCKS_PER_SEC);
 	return 0;
 }
 
