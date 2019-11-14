@@ -3,6 +3,32 @@
 
 
 
+typedef map<string, double> Data;
+
+
+int main(int argc, char* argv[])
+{
+	Data dam_size = { {"H", 30.0},{"L", 20.0}, {"W", 0.0} };
+
+	//dam_size["H"] = 30.0;
+	//dam_size["L"] = 20.0;
+	//dam_size["W"] = 0.0;
+
+	Data::iterator it = dam_size.begin();
+	for (; it != dam_size.end(); it++)
+		cout << it->first << "--" << it->second << "\n";
+
+	cout << dam_size["H"] << "\n";
+
+	return 0;
+}
+
+
+
+
+
+
+
 // 享元模式（flyweight model）
 class iPlayer  // 创建抽象享元类。
 {
